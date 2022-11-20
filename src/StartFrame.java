@@ -31,7 +31,7 @@ public class StartFrame extends JFrame{
 		
 	
 					
-		// 오디오 => Thread로 만들자
+		// **오디오 => Thread로 만들자
 		try {
 			clip = AudioSystem.getClip();
 			File audioFile = new File("mainStartAudio.wav");
@@ -45,7 +45,7 @@ public class StartFrame extends JFrame{
 		clip.start();
 		
 		// 모달 다이얼로그 생성
-		playersettingdialog = new PlayerSettingDialog(this, "Player Setting"); // ?? 해결해야 함
+		playersettingdialog = new PlayerSettingDialog(this, "Player Setting");
 
 	}
 	
@@ -94,9 +94,22 @@ public class StartFrame extends JFrame{
 			startButton.setPreferredSize(new Dimension(190, 50)); // 버튼 크기 조절
 			startButton.setFont(new Font("Jokerman", Font.BOLD, 15));
 			
-		
+			startButton.setFocusable(true);
+			startButton.requestFocus();
+			
+			startButton.addKeyListener(new KeyAdapter() {
+				
+				@Override
+				public void keyPressed(KeyEvent e) {
+					
+					if (e.getKeyChar() == '\n')
+						playersettingdialog.setVisible(true); // 모달 다이얼로그 실행
+				}
+			});
 			
 			startButton.addActionListener(new ActionListener() { // Action 리스너 작성
+				
+				@Override
 				public void actionPerformed(ActionEvent e) { // 버튼이 눌러지면
 //					JButton b = (JButton)e.getSource();
 //					System.out.println("Clicked!!"); // 플레이어 설정 다이얼로그 출력
