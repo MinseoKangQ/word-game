@@ -232,5 +232,4 @@ public class PlayerSettingDialog extends JDialog {
 		
 	}
 
-
 }

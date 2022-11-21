@@ -88,8 +88,6 @@ public class StartFrame extends JFrame{
 			setBackground(Color.YELLOW);
 			setLayout(new FlowLayout());
 			
-			
-			
 			JButton startButton = new JButton("Press Enter To Start");
 			startButton.setPreferredSize(new Dimension(190, 50)); // 버튼 크기 조절
 			startButton.setFont(new Font("Jokerman", Font.BOLD, 15));
