@@ -58,7 +58,6 @@ public class StartFrame extends JFrame{
 			
 			ImageIcon mainTextImage = new ImageIcon("spongebobMainText.png"); // 이미지 로딩
 			JLabel mainTextImageLabel = new JLabel(mainTextImage);
-//			System.out.println(mainTextImageLabel.getPreferredSize());
 			
 			this.add(mainTextImageLabel); // 패널에 mainTextImageLabel 부착
 			
@@ -87,8 +86,6 @@ public class StartFrame extends JFrame{
 			
 			setBackground(Color.YELLOW);
 			setLayout(new FlowLayout());
-			
-			
 			
 			JButton startButton = new JButton("Press Enter To Start");
 			startButton.setPreferredSize(new Dimension(190, 50)); // 버튼 크기 조절

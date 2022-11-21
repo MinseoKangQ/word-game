@@ -49,14 +49,12 @@ public class PlayerSettingDialog extends JDialog {
 	
 	
 	// 플레이어 정보 저장
-	// 플레이어 이름 / 프로필 사진 / 난이도 / 파일 / 소리(?)
+	// 플레이어 이름 / 프로필 사진 / 난이도 / 파일 / 오디오
 	private String settingDifficulty = null;
 	
 	public PlayerSettingDialog(StartFrame frame, String title) {
 		
 		super(frame, title, true);
-//		setTitle(); // Title 설정
-//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 창 닫히면 프로그램 종료 --> ?
 		
 		Container c = getContentPane();
 		
@@ -212,7 +210,7 @@ public class PlayerSettingDialog extends JDialog {
 
 			}
 		});
-		
+	
 		// 크기와 위치 설정 끝
 		
 		// 컴포넌트들 부착
@@ -227,10 +225,9 @@ public class PlayerSettingDialog extends JDialog {
 		c.add(cancelButton);
 		
 		setSize(550, 620); // 창 크기
-		setVisible(true); // 창 보이게
+		setVisible(false); // 창 보이게
 		setResizable(false); // 창 크기 변경 불가능하게	
 		
 	}
-
 
 }
