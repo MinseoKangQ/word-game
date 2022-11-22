@@ -1,7 +1,7 @@
 # WordGame
 Mini Project with JAVA
 
-* __게임 시작 시 Player Setting Dialog 바로 안뜨게__
+* ~~__게임 시작 시 Player Setting Dialog 바로 안뜨게__~~
 <br>
 
 * __Player Setting Dialog__
@@ -11,6 +11,8 @@ Mini Project with JAVA
         * 난이도
         * 파일
         * 오디오
+    * __오디오 시작 화면 NORTH 의 ToolBar로__
+    * __프로필 사진 RadioButton으로 만들기__
     * __Complete Setting -> 확인 누르면 게임 시작 화면으로__
     * __Choose Profile__
         * 마우스 올라가면 주위에 파란색 테두리 생기게
