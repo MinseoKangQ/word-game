@@ -52,11 +52,14 @@ public class PlayerSettingDialog extends JDialog {
 	// 플레이어 이름 / 프로필 사진 / 난이도 / 파일 / 오디오
 	private String settingDifficulty = null;
 	
-	public PlayerSettingDialog(StartFrame frame, String title) {
+//	public PlayerSettingDialog(StartFrame frame, String title) {
 		
-		super(frame, title, true);
+//		super(frame, title, true);
+	
+	public PlayerSettingDialog() {
 		
 		Container c = getContentPane();
+		setTitle("Setting Player");
 		
 		// 배치관리자 제거
 		c.setLayout(null);
@@ -182,23 +185,6 @@ public class PlayerSettingDialog extends JDialog {
 					// 플레이어 이름 출력
 					System.out.println("Player Name : " + inputPlayerNameField.getText());
 					
-					//settingDifficulty
-					// 난이도 출력
-//					for (int i = 0; i<difficultyArray.length; i++) {
-//						if(difficultyArray[i].isSelected())
-//							settingDifficulty = difficultyArray[i].getText();
-//					}
-//					Enumeration<AbstractButton> enums = difficultyButtonGroup.getElements();
-//					int gibonCode = 0;
-//					while(enums.hasMoreElements()) {
-//						AbstractButton ab = enums.nextElement();
-//						JRadioButton jb = (JRadioButton)ab;
-//						
-//						if(jb.isSelected())
-//							gibonCode = Integer.parseInt(jb.getText().trim()); 
-//					}
-//					System.out.println("Difficulty : " + gibonCode );
-					
 					// 파일 이름 출력 
 					System.out.println("File : " + fileName );
 					
@@ -206,6 +192,8 @@ public class PlayerSettingDialog extends JDialog {
 					// **플레이어가 설정한 정보 저장하기
 					setVisible(false);
 					// **게임 화면으로 넘어가는 것 
+					GameFrame gameFrame = new GameFrame();
+					
 				}
 
 			}

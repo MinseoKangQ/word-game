@@ -1,3 +1,5 @@
+import javax.swing.JFrame;
+
 //import java.awt.Color;
 //import java.awt.FlowLayout;
 //import java.awt.event.ActionEvent;
@@ -81,6 +83,20 @@
 //		}
 //		
 //	}
-public class GameFrame {
+public class GameFrame extends JFrame {
 
+	public GameFrame() {
+	
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		setTitle("단어 게임"); // Title 설정
+		setSize(800, 600); // 창 크기
+		
+//		makeMenu();
+//		makeToolBar();
+//		makeSplitPane();
+		
+		setVisible(true); // 창 보이게 
+	}
+	
 }
