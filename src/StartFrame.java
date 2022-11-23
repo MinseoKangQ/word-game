@@ -8,13 +8,17 @@ import java.awt.*;
 // StartFrame 시작
 public class StartFrame extends JFrame{
 	
-	private PlayerSettingDialog playersettingdialog; // 다이얼로그 레퍼런스
+	private PlayerSettingDialog playersettingdialog = new PlayerSettingDialog(this, "Player Setting"); 	// 모달 다이얼로그 생성
 	
-//	private ImageIcon normalIcon = new ImageIcon("PlayButton.png");
+	private ImageIcon normalPlayIcon = new ImageIcon("PlayButton.png");
+	private ImageIcon normalResetIcon = new ImageIcon("ResetButton.png");
+	private ImageIcon normalStopIcon = new ImageIcon("StopButton.png");
+	
 //	private ImageIcon overedIcon = new ImageIcon("PlayButton.png");
 //	private ImageIcon pressedIcon = new ImageIcon("PlayButton.png");
-//	private JButton startBtn = new JButton(normalIcon);
-	
+	private JButton startBtn = new JButton(normalPlayIcon);
+	private JButton resetBtn = new JButton(normalResetIcon);
+	private JButton stopBtn = new JButton(normalStopIcon);
 	
 	private Clip clip;
 	
@@ -29,25 +33,32 @@ public class StartFrame extends JFrame{
 		
 		// 컨테이너에 부착할 패널들 생성
 		StartFrameNorthPanel startFrameNorthPanel = new StartFrameNorthPanel();
-		StartFrameCenterPanel startFrameCenterPanel = new StartFrameCenterPanel();
+		StartFrameCenterPanel startFrameCenterPanel = new StartFrameCenterPanel(); 
+		StartFrameCenterNorthPanel startFrameCenterNorthPanel = new StartFrameCenterNorthPanel();
+		StartFrameCenterCenterPanel startFrameCenterCenterPanel = new StartFrameCenterCenterPanel();
 		StartFrameSouthPanel startFrameSouthPanel = new StartFrameSouthPanel();
+		
+//		// focus 주기
+//		startFrameSouthPanel.requestFocus();
+//		startFrameSouthPanel.setFocusable(true);
+		//
 		
 		// 패널들 컨테이너에 부착
 		container.add(startFrameNorthPanel, BorderLayout.NORTH);
 		container.add(startFrameCenterPanel, BorderLayout.CENTER);
-		container.add(startFrameSouthPanel, BorderLayout.SOUTH);
-		
-		// startFrameCenterPanel에 부착할 패널들 생성 
-		StartFrameCenterNorthPanel startFrameCenterNorthPanel = new StartFrameCenterNorthPanel();
-		StartFrameCenterCenterPanel startFrameCenterCenterPanel = new StartFrameCenterCenterPanel();
-		
 		// 패널들 startFrameCenterPanel에 부착
 		startFrameCenterPanel.add(startFrameCenterNorthPanel, BorderLayout.NORTH);
 		startFrameCenterPanel.add(startFrameCenterCenterPanel, BorderLayout.CENTER);
+		// 패널들 컨테이너에 부착
+		container.add(startFrameSouthPanel, BorderLayout.SOUTH);
 		
+	
 		setSize(900, 680); // 창 크기
 		setVisible(true); // 창 보이게
 		setResizable(false); // 창 크기 변경 불가능하게	
+		
+//		startFrameSouthPanel.setFocusable(true);
+//		startFrameSouthPanel.requestFocus();
 		
 		
 		// **오디오 => Thread로 만들자
@@ -63,8 +74,7 @@ public class StartFrame extends JFrame{
 		
 		clip.start();
 		
-		// 모달 다이얼로그 생성
-		playersettingdialog = new PlayerSettingDialog(this, "Player Setting");
+	
 
 	}
 	
@@ -73,32 +83,58 @@ public class StartFrame extends JFrame{
 		
 		public StartFrameNorthPanel() {
 			
+			this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 5));
+//			this.setBackground(new Color(0, 189, 203)); // 패널의 Background
+			this.setBackground(Color.ORANGE); // 패널의 Background
 			// 툴바 만들기
 			JToolBar toolBar = new JToolBar();
 			
-			toolBar.add(new JButton("NEW"));
-			toolBar.addSeparator();
-			this.add(toolBar, new FlowLayout());
 			
-			// ** 툴바 레이아웃 null?
+			// 시작 버튼의 이미지 설정
+//			startBtn.setPressedIcon(pressedIcon);
+//			startBtn.setRolloverIcon(overedIcon);
+			
+			// 액션 리스너 등록 
+			startBtn.addActionListener(new ActionListener() {
+				
+				public void actionPerformed(ActionEvent e) {
+					
+					System.out.println("눌림");
+				}
+			});
+			
+//			toolBar.setBackground(new Color(0, 189, 203));
+			toolBar.setBackground(Color.ORANGE);
+			startBtn.setBackground(Color.WHITE);
+			resetBtn.setBackground(Color.WHITE);
+			stopBtn.setBackground(Color.WHITE);
+			
+			startBtn.setOpaque(true);
+			resetBtn.setOpaque(true);
+			stopBtn.setOpaque(true);
+			
+			startBtn.setBorderPainted(false);
+			resetBtn.setBorderPainted(false);
+			stopBtn.setBorderPainted(false);
+			
+			// 툴바에 버튼 달기
+			toolBar.add(startBtn);
+			toolBar.addSeparator();
+			toolBar.add(resetBtn);
+			toolBar.addSeparator();
+			toolBar.add(stopBtn);
+
+			startBtn.setFocusable(false);
+			resetBtn.setFocusable(false);
+			stopBtn.setFocusable(false);
+			// 툴바를 패널에 달기
+			this.add(toolBar);
+			
 			// ** PlayButton, StopButton, ResetButton 붙이기
-			// **
+			// ** 
 		
 			toolBar.setFloatable(false); // 툴바 이동 못하게 설정
-			// ** 시작하면 포커스 ??
-			//toolBar.setFocusable(false); -> ?
-//			
-			// 액션 리스너 등록 
-//			startBtn.addActionListener(new ActionListener() {
-//				
-//				public void actionPerformed(ActionEvent e) {
-//					
-//					// 소리 세팅
-//				}
-//			});
-//			
-			// 툴바에 버튼 달기
-//			tBar.add(startBtn);
+			// ** 시작하면 포커스 ?		
 			
 			
 		}
@@ -113,6 +149,7 @@ public class StartFrame extends JFrame{
 			
 		}
 	}
+	
 	// 수정됨
 	class StartFrameCenterNorthPanel extends JPanel {
 		
@@ -153,7 +190,7 @@ public class StartFrame extends JFrame{
 			setBackground(Color.YELLOW);
 			setLayout(new FlowLayout());
 			
-			JButton startButton = new JButton("Press Enter To Start");
+			JButton startButton = new JButton("Click To Start");
 			startButton.setPreferredSize(new Dimension(190, 50)); // 버튼 크기 조절
 			startButton.setFont(new Font("Jokerman", Font.BOLD, 15));
 			
@@ -161,7 +198,7 @@ public class StartFrame extends JFrame{
 			startButton.requestFocus();
 			
 			startButton.addKeyListener(new KeyAdapter() {
-				
+				 
 				@Override
 				public void keyPressed(KeyEvent e) {
 					
