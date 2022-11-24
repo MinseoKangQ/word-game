@@ -3,8 +3,13 @@ public class App {
 
 	public static void main(String[] args) {
 		
-		new StartFrame();
+		StartFrame startFrame = new StartFrame();
 
+	}
+	
+	public static void run() {
+		
+		GameFrame gameFrame = new GameFrame();
 	}
 
 }

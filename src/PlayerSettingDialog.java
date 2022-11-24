@@ -191,8 +191,11 @@ public class PlayerSettingDialog extends JDialog {
 					
 					// **플레이어가 설정한 정보 저장하기
 					setVisible(false);
-					// **게임 화면으로 넘어가는 것 
-					GameFrame gameFrame = new GameFrame();
+					// 게임 화면으로 넘어가는 것 
+					App.run();
+					dispose();
+//					StartFrame.disposeStartFrame();
+					//StartFrame.dispose();
 					
 				}
 

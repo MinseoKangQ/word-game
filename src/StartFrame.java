@@ -66,4 +66,10 @@ public class StartFrame extends JFrame {
 		
 	}
 	
+//	public static void disposeStartFrame() {
+//		
+//		dispose();
+//	}
+	
+	
 } // StartFrame 끝
