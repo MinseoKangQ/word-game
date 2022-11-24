@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -7,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 // South에 붙여질 Panel
@@ -16,7 +18,7 @@ public class StartFrameSouthPanel extends JPanel {
 	
 	// 생성자
 	public StartFrameSouthPanel() {
-			
+		
 		setLayout(new FlowLayout()); // 배치관리자 설정
 		setBackground(Color.YELLOW); // 배경색 설정
 			
@@ -57,7 +59,7 @@ public class StartFrameSouthPanel extends JPanel {
 		public void mouseClicked(MouseEvent e) { // 버튼이 클릭되면
 		
 			playersettingdialog.setVisible(true); // 모달 다이얼로그 실행
-		
+			
 		}
 	}
 	

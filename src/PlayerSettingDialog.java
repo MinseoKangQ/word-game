@@ -8,7 +8,7 @@ import java.util.Enumeration;
 
 
 public class PlayerSettingDialog extends JDialog {
-	
+
 	private Font defaultFont = new Font("Jokerman", Font.BOLD, 15); // 기본 폰트 설정
 	
 	// Player Name 부분
@@ -16,6 +16,7 @@ public class PlayerSettingDialog extends JDialog {
 	private JTextField inputPlayerNameField = new JTextField(20); // Player Name 입력받는 필드
 	
 	// Choose Profile 부분
+	// ** JRadioButton으로 만들기 
 	private JLabel chooseProfileLabel = new JLabel("Choose Profile"); // Choose Profile 출력 레이블
 	private String profileArray [] = { 
 			"SpongebobSquarepants.png", "PatrickStar.png", "Squidward Tentacles.png",
@@ -37,24 +38,14 @@ public class PlayerSettingDialog extends JDialog {
 	private String pathName = null;
 	private String fileName = null;
 	
-	// Sound 부분
-	private JLabel soundLabel = new JLabel("Sound"); // Sound 출력 레이블
-	private String soundArray [] = { "Play", "Mute"};
-	private ButtonGroup soundButtonGroup = new ButtonGroup();
-	private JRadioButton soundButtonComponents[] = new JRadioButton[2];
-	
 	// Complete Settings와 Cancel 부분
 	private JButton completeSettingsButton = new JButton("Complete Settings");
 	private JButton cancelButton = new JButton("Cancel");
 	
 	
-	// 플레이어 정보 저장
+	// ** 플레이어 정보 저장
 	// 플레이어 이름 / 프로필 사진 / 난이도 / 파일 / 오디오
 	private String settingDifficulty = null;
-	
-//	public PlayerSettingDialog(StartFrame frame, String title) {
-		
-//		super(frame, title, true);
 	
 	public PlayerSettingDialog() {
 		
@@ -71,7 +62,6 @@ public class PlayerSettingDialog extends JDialog {
 		difficultyLabel.setFont(defaultFont);
 		languageLabel.setFont(defaultFont);
 		OpenFileButton.setFont(defaultFont);
-		soundLabel.setFont(defaultFont);
 		completeSettingsButton.setFont(defaultFont);
 		cancelButton.setFont(defaultFont);
 		
@@ -149,27 +139,11 @@ public class PlayerSettingDialog extends JDialog {
 			}
 		});
 		
-		// Sound 부분
-		soundLabel.setSize(145, 40);
-		soundLabel.setLocation(30, 410);
-		
-		// **Slider로 만들기
-		for (int i = 0; i<soundButtonComponents.length; i++) {
-			soundButtonComponents[i] = new JRadioButton(soundArray[i]);
-			soundButtonGroup.add(soundButtonComponents[i]);
-			soundButtonComponents[i].setSize(100, 40); 
-			soundButtonComponents[i].setLocation(30+(i*80), 450);
-			soundButtonComponents[i].setFont(defaultFont);
-			c.add(soundButtonComponents[i]);
-		}
-		
-		soundButtonComponents[0].setSelected(true); // Play 모드 Default로 선택
-
 		// Complete Settings와 Cancel 부분
 		completeSettingsButton.setSize(190, 50);
-		completeSettingsButton.setLocation(65, 520);
+		completeSettingsButton.setLocation(65, 450);
 		cancelButton.setSize(190, 50);
-		cancelButton.setLocation(550/2+20, 520);
+		cancelButton.setLocation(550/2+20, 450);
 		
 		// Complete Settings가 눌리면, 게임을 시작하시겠습니까? 다이얼로그 출력하고 YES NO 띄우고, 
 		// YES 이면 게임 시작 창으로 넘어가기, NO 이면 이전 상태로 돌아가기
@@ -188,14 +162,12 @@ public class PlayerSettingDialog extends JDialog {
 					// 파일 이름 출력 
 					System.out.println("File : " + fileName );
 					
-					
 					// **플레이어가 설정한 정보 저장하기
 					setVisible(false);
 					// 게임 화면으로 넘어가는 것 
 					App.run();
 					dispose();
-//					StartFrame.disposeStartFrame();
-					//StartFrame.dispose();
+//					// StartFrame 없애기
 					
 				}
 
@@ -211,11 +183,10 @@ public class PlayerSettingDialog extends JDialog {
 		c.add(difficultyLabel);
 		c.add(languageLabel);
 		c.add(OpenFileButton);
-		c.add(soundLabel);
 		c.add(completeSettingsButton);
 		c.add(cancelButton);
 		
-		setSize(550, 620); // 창 크기
+		setSize(550, 580); // 창 크기
 		setVisible(false); // 창 보이게
 		setResizable(false); // 창 크기 변경 불가능하게	
 		

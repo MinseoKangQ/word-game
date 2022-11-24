@@ -11,7 +11,7 @@ public class StartFrame extends JFrame {
 	private StartFrameNorthPanel startFrameNorthPanel;
 	private StartFrameCenterPanel startFrameCenterPanel;
 	private StartFrameSouthPanel startFrameSouthPanel;
-	
+	private Container contentPane;
 	private Clip clip;
 	
 	// StartFrame 생성자
@@ -20,8 +20,8 @@ public class StartFrame extends JFrame {
 		setTitle("Typing Game"); // Title 설정
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 창 닫히면 프로그램 종료
 		
-		Container container = getContentPane(); // 컨텐트팬 받아오기
-		container.setLayout(new BorderLayout()); // 컨테이너 배치관리자 설정
+		contentPane = getContentPane(); // 컨텐트팬 받아오기
+		contentPane.setLayout(new BorderLayout()); // 컨테이너 배치관리자 설정
 		
 		// 컨테이너에 부착할 패널들 생성
 		makePanels();
@@ -66,10 +66,6 @@ public class StartFrame extends JFrame {
 		
 	}
 	
-//	public static void disposeStartFrame() {
-//		
-//		dispose();
-//	}
 	
 	
 } // StartFrame 끝
