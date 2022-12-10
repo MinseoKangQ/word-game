@@ -23,13 +23,10 @@ public class StartFrame extends JFrame {
 		contentPane = getContentPane(); // 컨텐트팬 받아오기
 		contentPane.setLayout(new BorderLayout()); // 컨테이너 배치관리자 설정
 		
-		// 컨테이너에 부착할 패널들 생성
-		makePanels();
-		
-		// 패널들 컨테이너에 부착
-		addPanels();
+		makePanels();  // 컨테이너에 부착할 패널들 생성
+		addPanels(); // 패널들 컨테이너에 부착
 	
-		setSize(900, 680); // 창 크기
+		setSize(900, 680); // 창 크기 설정
 		setVisible(true); // 창 보이게
 		setResizable(false); // 창 크기 변경 불가능하게	
 		

@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 
@@ -11,7 +10,12 @@ import java.util.Enumeration;
 public class PlayerSettingDialog extends JDialog {
 	
 	Container contentPane;
-
+	public static String name = "";
+	public static String profile = "SpongebobSquarepants";
+	public static String difficulty = "Easy";
+	public static String pathName = "";
+	public static String fileName = "";
+	
 	private Font defaultFont = new Font("Jokerman", Font.BOLD, 15); // 기본 폰트 설정
 	
 	// Player Name 부분
@@ -21,15 +25,16 @@ public class PlayerSettingDialog extends JDialog {
 	// Choose Profile 부분
 	private JLabel chooseProfileLabel = new JLabel("Choose Profile"); // Choose Profile 출력 레이블
 	private String profileArray [] = { 
-			"SpongebobSquarepants.png", "PatrickStar.png", "Squidward Tentacles.png",
-			"SandraCheeks.png", "EugeneHaroldKrabs.png", "SheldonJanetPlankton.png"
+			"SpongebobSquarepants.png", "PatrickStar.png", 
+			//"Squidward Tentacles.png", "SandraCheeks.png", "EugeneHaroldKrabs.png", "SheldonJanetPlankton.png"
 	};
-	private ImageIcon profileImage [] = new ImageIcon[6];
-	private JLabel profileImageLabel [] = new JLabel[6];
+	private ImageIcon profileImage [] = new ImageIcon[2];
+	ButtonGroup profileButtonGroup = new ButtonGroup();
+	JRadioButton profileButtonComponents[] = new JRadioButton[2];
 	
 	// Choose Difficulty 부분
 	private JLabel difficultyLabel = new JLabel("Choose Difficulty"); // Choose Difficulty 출력 레이블
-	private String difficultyArray [] = { "Easy", "Hard", "Normal" };
+	private String difficultyArray [] = { "Easy", "Normal", "Hard" };
 	private ButtonGroup difficultyButtonGroup = new ButtonGroup();
 	private JRadioButton difficultyButtonComponents[] = new JRadioButton[3];
 	
@@ -37,8 +42,6 @@ public class PlayerSettingDialog extends JDialog {
 	private JLabel languageLabel = new JLabel("Choose Language"); // Choose Language 출력 레이블
 	private JButton OpenFileButton = new JButton("Open File");
 	private JFileChooser chooser; // JFileChooser 레퍼런스 변수 선언
-	private String pathName = null;
-	private String fileName = null;
 	
 	// Complete Settings와 Cancel 부분
 	private JButton completeSettingsButton = new JButton("Complete Settings");
@@ -57,7 +60,7 @@ public class PlayerSettingDialog extends JDialog {
 		// 배치관리자 제거
 		contentPane.setLayout(null);
 		
-		setAllSizeAndLocation(); // 부착을 위한 컴포넌트 크기 및 위치 설정
+		setAllSizeAndLocation(); // 컴포넌트 부착을 위한 컴포넌트 크기 및 위치 설정
 		setAllFont(); // 폰트 설정
 		addAllComponents(); // 모든 컴포넌트들 부착
 		addAllActionListener(); // 필요한 액션리스너들 부착
@@ -68,8 +71,7 @@ public class PlayerSettingDialog extends JDialog {
 		
 	}
 	
-	
-	private void setAllSizeAndLocation() { // 부착을 위한 컴포넌트 크기 및 위치 설정
+	private void setAllSizeAndLocation() { // 컴포넌트 부착을 위한 컴포넌트 크기 및 위치 설정
 		
 		// PlayerName 부분
 		playerNameLabel.setSize(100, 40);
@@ -81,22 +83,22 @@ public class PlayerSettingDialog extends JDialog {
 		chooseProfileLabel.setSize(115, 40);
 		chooseProfileLabel.setLocation(30, 90);
 		
-		for (int i = 0; i<profileArray.length; i++) {
+		for (int i = 0; i<profileButtonComponents.length; i++) {
 			profileImage[i] = new ImageIcon(profileArray[i]);
-			profileImageLabel[i] = new JLabel(profileImage[i]);
-			profileImageLabel[i].setSize(60, 75); 
-			profileImageLabel[i].setLocation(30+(i*80), 135);
+			profileButtonComponents[i] = new JRadioButton(profileImage[i]);
+			profileButtonComponents[i].setSize(60, 75); 			
+			profileButtonComponents[i].setLocation(30+(i*80), 135);
 		}
-
+		profileButtonComponents[0].setSelected(true); // 스폰지밥 Default로 선택
+		
 		// Choose Difficulty 부분
 		difficultyLabel.setSize(145, 40);
 		difficultyLabel.setLocation(30, 230);
 				
 		for (int i = 0; i<difficultyButtonComponents.length; i++) {
 			difficultyButtonComponents[i] = new JRadioButton(difficultyArray[i]);
-			difficultyButtonGroup.add(difficultyButtonComponents[i]);
 			difficultyButtonComponents[i].setSize(100, 40); 
-			difficultyButtonComponents[i].setLocation(30+(i*80), 270);
+			difficultyButtonComponents[i].setLocation(30+(i*100), 270);
 		}
 		difficultyButtonComponents[0].setSelected(true); // Easy 모드 Default로 선택
 				
@@ -138,10 +140,12 @@ public class PlayerSettingDialog extends JDialog {
 		contentPane.add(inputPlayerNameField);
 		contentPane.add(chooseProfileLabel);
 		for (int i = 0; i<profileArray.length; i++) {
-			contentPane.add(profileImageLabel[i]);
+			profileButtonGroup.add(profileButtonComponents[i]);
+			contentPane.add(profileButtonComponents[i]);
 		}
 		contentPane.add(difficultyLabel);
 		for (int i = 0; i<difficultyButtonComponents.length; i++) {
+			difficultyButtonGroup.add(difficultyButtonComponents[i]);
 			contentPane.add(difficultyButtonComponents[i]);
 		}
 		contentPane.add(languageLabel);
@@ -180,22 +184,67 @@ public class PlayerSettingDialog extends JDialog {
 			}
 		});
 		
+		for (int i = 0; i<profileButtonComponents.length; i++) {
+			profileButtonComponents[i].addItemListener(new ItemListener() {
+				
+				@Override
+				public void itemStateChanged(ItemEvent e) {
+					
+					if(e.getStateChange() == ItemEvent.DESELECTED) return;
+					if (profileButtonComponents[0].isSelected())
+						profile = "SpongebobSquarepants";
+					else if (profileButtonComponents[1].isSelected())
+						profile = "PatrickStar";
+					
+			}});
+		}
+		
+		for (int i = 0; i<difficultyButtonComponents.length; i++) {
+			difficultyButtonComponents[i].addItemListener(new ItemListener() {
+				
+				@Override
+				public void itemStateChanged(ItemEvent e) {
+					
+//					if(e.getStateChange() == ItemEvent.DESELECTED) return;
+					if (difficultyButtonComponents[0].isSelected())
+						difficulty = "Easy";
+					else if (difficultyButtonComponents[1].isSelected())
+						difficulty = "Normal";
+					else if (difficultyButtonComponents[2].isSelected())
+						difficulty = "Hard";
+			}});
+		}
+		
 		// Complete Settings가 눌리면, 게임을 시작하시겠습니까? 다이얼로그 출력하고 YES NO 띄우고, 
 		// YES 이면 게임 시작 창으로 넘어가기, NO 이면 이전 상태로 돌아가기
 		completeSettingsButton.addActionListener(new ActionListener() {
 							
 			// confirm Dialog 출력
 			public void actionPerformed(ActionEvent e) {
-				int confirmResult = JOptionPane.showConfirmDialog(contentPane, "입력한 정보가 맞습니까?", "Confirm Setting Infomation",
+				
+				name = inputPlayerNameField.getText();
+				
+				if (name.equals("")) 
+					JOptionPane.showMessageDialog(null, "이름을 입력하세요!!", "경고", JOptionPane.ERROR_MESSAGE);
+				
+				else if (fileName.equals(""))
+					JOptionPane.showMessageDialog(null, "파일을 선택하세요!!", "경고", JOptionPane.ERROR_MESSAGE);
+				
+				else {
+					
+					int confirmResult = JOptionPane.showConfirmDialog(contentPane, "입력한 정보가 맞습니까?", "Confirm Setting Infomation",
 						JOptionPane.YES_NO_OPTION);
 								
 				if (confirmResult == JOptionPane.YES_OPTION) {
 									
 					// 플레이어 이름 출력
-					System.out.println("Player Name : " + inputPlayerNameField.getText());
-									
+					System.out.println("Player Name : " + name);
+					// 프로필 선택한 것 출력
+					System.out.println("Choosed Profile : " + profile);
+					// 난이도 선택한 것 출력
+					System.out.println("난이도 : " + difficulty);
 					// 파일 이름 출력 
-					System.out.println("File : " + fileName );
+					System.out.println("File : " + fileName);
 									
 					// **플레이어가 설정한 정보 저장하기
 					setVisible(false); 
@@ -204,10 +253,12 @@ public class PlayerSettingDialog extends JDialog {
 					App.run();
 					dispose();
 							
+					}
 				}
-
 			}
 		});
+		
+		
 		
 	}
 	
