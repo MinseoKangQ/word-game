@@ -20,6 +20,7 @@ Mini Project with JAVA
         * 이후 Background Sound 설정
         * Background Sound 관련 GameFrame 오른쪽 하단에 만들기
     * __GameFrame__
+        * 게임 시작 시 3초 스레드
         * 기본 틀 잡기
         * GamePanel 완성하기
         * ScorePanel 완성하기
