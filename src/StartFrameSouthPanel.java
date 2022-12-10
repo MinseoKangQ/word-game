@@ -13,11 +13,16 @@ import javax.swing.JPanel;
 
 // South에 붙여질 Panel
 public class StartFrameSouthPanel extends JPanel {
-		
-	private PlayerSettingDialog playersettingdialog = new PlayerSettingDialog(); // 모달 다이얼로그 생성
+	
+	private StartFrame startFrame;
+	private Audio audio;
+	private PlayerSettingDialog playersettingdialog;
 	
 	// 생성자
-	public StartFrameSouthPanel() {
+	public StartFrameSouthPanel(StartFrame startFrame, Audio audio) {
+	
+		this.startFrame = startFrame;
+		this.audio = audio;
 		
 		setLayout(new FlowLayout()); // 배치관리자 설정
 		setBackground(Color.YELLOW); // 배경색 설정
@@ -35,6 +40,9 @@ public class StartFrameSouthPanel extends JPanel {
 		startButton.addMouseListener(new MouseClickedListener()); // 버튼에 MouseListener 부착
 			
 		this.add(startButton); // 패널에 버튼 부착
+		
+		
+		
 			
 	} // 생성자 끝
 	
@@ -46,8 +54,13 @@ public class StartFrameSouthPanel extends JPanel {
 					
 			if (e.getKeyChar() == '\n') { // 엔터를 받으면 
 				
-				playersettingdialog.setVisible(true); // 모달 다이얼로그 실행
+				playersettingdialog = new PlayerSettingDialog(audio); // 모달 다이얼로그 생성
+				playersettingdialog.setVisible(true); // 모달 다이얼로그 보이게
+//				audio.stopAudio("startFrame");
+				startFrame.setVisible(false);
+				startFrame.dispose();
 				
+
 			}	
 		}
 	}

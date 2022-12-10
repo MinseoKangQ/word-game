@@ -4,15 +4,21 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.Enumeration;
 
 
 public class PlayerSettingDialog extends JDialog {
 	
+	// 오디오 전달 받을 수 있게 레퍼런스 선언
+	public Audio audio;
+	
 	Container contentPane;
+	
+	// 정보 저장하는 static 변수
 	public static String name = "";
-	public static String profile = "SpongebobSquarepants";
-	public static String difficulty = "Easy";
+	public static String profile = "SpongebobSquarepants"; // 초기 설정
+	public static String difficulty = "Easy"; // 초기 설정
 	public static String pathName = "";
 	public static String fileName = "";
 	
@@ -46,14 +52,12 @@ public class PlayerSettingDialog extends JDialog {
 	// Complete Settings와 Cancel 부분
 	private JButton completeSettingsButton = new JButton("Complete Settings");
 	private JButton cancelButton = new JButton("Cancel");
-	
-	
-	// ** 플레이어 정보 저장
-	// 플레이어 이름 / 프로필 사진 / 난이도 / 파일 / 오디오
-	private String settingDifficulty = null;
-	
-	public PlayerSettingDialog() {
-		
+
+	// 생성자
+	public PlayerSettingDialog(Audio audio) {
+
+		this.audio = audio;
+
 		contentPane = getContentPane();
 		setTitle("Setting Player");
 		
@@ -69,8 +73,8 @@ public class PlayerSettingDialog extends JDialog {
 		setVisible(false); // 창 보이게
 		setResizable(false); // 창 크기 변경 불가능하게	
 		
-	}
-	
+	} // 생성자 끝
+
 	private void setAllSizeAndLocation() { // 컴포넌트 부착을 위한 컴포넌트 크기 및 위치 설정
 		
 		// PlayerName 부분
@@ -115,7 +119,7 @@ public class PlayerSettingDialog extends JDialog {
 		cancelButton.setSize(190, 50);
 		cancelButton.setLocation(550/2+20, 450);
 	
-	}
+	} 
 	
 
 	private void setAllFont() { // 폰트 설정
@@ -205,7 +209,6 @@ public class PlayerSettingDialog extends JDialog {
 				@Override
 				public void itemStateChanged(ItemEvent e) {
 					
-//					if(e.getStateChange() == ItemEvent.DESELECTED) return;
 					if (difficultyButtonComponents[0].isSelected())
 						difficulty = "Easy";
 					else if (difficultyButtonComponents[1].isSelected())
@@ -245,14 +248,11 @@ public class PlayerSettingDialog extends JDialog {
 					System.out.println("난이도 : " + difficulty);
 					// 파일 이름 출력 
 					System.out.println("File : " + fileName);
-									
-					// **플레이어가 설정한 정보 저장하기
-					setVisible(false); 
 										
-					// 게임 화면으로 넘어가는 것 
-					App.run();
-					dispose();
-							
+					audio.stopAudio("startFrame"); // 시작 음악 정지
+					dispose(); // PlayerSettingDialog 종료
+					App.run(); // 게임 화면으로 넘어가기 
+					
 					}
 				}
 			}
