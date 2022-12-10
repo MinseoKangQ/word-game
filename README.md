@@ -6,10 +6,10 @@ Mini Project with JAVA
  * ~~Complete Setting -> 확인 누르면 플레이어 정보 저장 처리(플레이어 이름/프로필 사진/난이도/파일) static 변수로 처리~~
 * ~~프로필 사진 RadioButton으로 만들기~~
 * ~~StartFrameSound -> StartFrame 처음 나타나면 나오고, Player Setting Dialog 닫히면 종료~~
+* ~~StartFrameSound -> StartFrame 처음 나타나면 나오고, Player Setting Dialog 닫히면 종료~~
 <br>
 
 * __Player Setting Dialog__
-    * __Complete Setting -> 확인 누르면 StartFrame 없애기__
     * __Choose Profile => RadioButton으로 만들기__
         * 선택되었을 때 그림자 효과?
         
