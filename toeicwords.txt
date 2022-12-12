@@ -1,0 +1,327 @@
+abbreviate
+accommodate
+accuse A of B
+acquaint
+admantly
+adequate
+adhere
+adhesive
+alleviate
+amendment
+anticipate
+approve
+aspect
+aspire
+assess
+assume
+assure
+apparently
+as to
+assign
+associate
+attendant
+attentive
+attraction
+attribute
+banquet
+barring
+be eligible for
+be reluctant to
+become acquaint with
+belated
+bewilder
+boast
+by comparison
+cautious
+certificate
+clarify
+coincide
+colleague
+commit
+committable
+companion
+compartment
+compatible
+compliance
+complimentary
+comply with
+comprehensive
+conceal
+concede
+conceivably
+concerning
+conduct
+confide
+confidentiality
+congest
+conscious
+consecutive
+consent
+consequent
+consistently
+conspicuous
+constraint
+containment
+contemporary
+contingency
+contraction
+contrary
+conveniently
+convince
+cope with
+cordially
+craft
+curb
+cutting-edge
+dedication
+defective
+delicate
+designated
+detach
+detain
+determined
+devise
+devote
+discard
+discerning
+disclose
+discourteous
+discrepancy
+dispensable
+disperse
+distinctively
+distract
+diverge
+dormitory
+drastic
+dwelling
+ecology
+eloquent
+emerge
+emission
+emphasize
+endorsement
+endowment
+enhance
+entrepreneurship
+erect
+essentially
+estranged from
+ethic
+evaluate
+exaggerated
+exclusively
+exotic
+execute
+expel
+expertise
+exquisite
+extension number
+extensively
+extent
+extinctions
+extracurricular
+extrairdinary
+extravagant
+extreme measure
+fabrication
+facilitate
+fatal
+feasibility
+feature
+fiasco
+fine
+fixture
+flourish
+fluctuation
+for the time being
+formerly
+forthcoming
+fraud
+freight
+fringe benefit
+frustrate
+fulfill
+fundamental
+genuine
+grant
+haphazardly
+have familiarity with
+hazardous
+hepatitis
+hierarchy
+immensely
+imperative
+implement
+implication
+impose
+in a timely manner
+in association with
+in compliance with
+in light of
+in terms of
+in the red
+incidence
+inclination
+incur
+initiative
+inquiry
+insolent
+inspect
+instance
+instigate
+intangible
+intend to
+intensify
+intention
+interim
+intriguing
+iron things out
+irrigation
+isolation
+itinerary
+keep clear of
+keep track of
+lapse
+legnthy
+lessen
+liable
+light refreshment
+liquidate
+mandate
+manipulation
+markedly
+meager
+means
+merely
+merchandise
+meteorological
+meticulously
+minutes
+morale
+municipality
+negligence
+novice
+numerically
+objectify
+obligate
+oblige
+obscure
+obsolete
+obstruct
+occupancy
+omission
+opportune
+orchestrate
+originate
+out of thin air
+outpace
+outskirt
+overhead expense
+owing to
+patronize
+perishable
+permissible
+perpetrate
+persistence
+perspective
+persuasive
+pertain to
+phase out
+poised
+precaution
+precipitation
+precisely
+preferment
+preliminary
+premises
+premier
+prevalent
+priority
+probationary period
+proficient
+prohibit
+prolong
+prominet
+prompt
+prone
+proportion
+prosperous
+provision
+proximity
+puddle
+punctual
+pursue
+quote
+raw materials
+reconcile
+rectify
+reference
+refrain from ~ing
+regulate
+reimburse
+rein
+relevant
+relieve
+reluctant
+remedy
+remit
+reoccurrence
+respective
+respirator
+retail
+retain
+retrieve
+revise
+ridicule
+rigorous
+rural
+sanctions against
+secure a patent
+shred
+shrub
+significant
+sparsely
+specify
+standing ovation
+sternly
+stimulate
+stipulate
+stock farmer
+stingently
+strive to
+subject to
+submit
+subsequent
+supplement
+suspicious
+sustain
+symptom
+tailor A to B
+take into account
+take it back
+tedious
+tentatively
+testify
+to some extent
+trivia
+tuition
+turmoil
+twofold
+undergo
+upkeep
+utmost
+utilize
+vaguely
+valid
+variable
+vastly
+verbalize
+verify
+versatile
+vital
+waive
+weightlessness
+willingly
+workmanship
+worrisome

@@ -10,12 +10,16 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class Audio {
 
 	private Clip startFrameClip;
+	private Clip beforeGameStartClip;
+	private Clip gameBackgroundClip;
 	
 	public Audio() {
 		startFrameClip = getClip("mainStartAudio.wav");
+		beforeGameStartClip = getClip("beforeGameStartAudio.wav");
+		gameBackgroundClip = getClip("gameBackgroundAudio.wav");
 	}
 	
-	// 음악 파일과 오디오 클립 연결
+	// 오디오 클립 가져오기
 	private Clip getClip(String filePath) {
 		
 		Clip clip = null;
@@ -39,6 +43,12 @@ public class Audio {
 		case "startFrame":
 			startFrameClip.start();
 			break;
+		case "beforeGameStart":
+			beforeGameStartClip.start();
+			break;
+		case "gameBackground":
+			gameBackgroundClip.start();
+			break;
 		}
 	}
 	
@@ -46,9 +56,30 @@ public class Audio {
 	public void stopAudio(String name) {
 		switch(name) {
 		case "startFrame":
-			startFrameClip.close();
+			startFrameClip.stop();
+			break;
+		case "beforeGameStart":
+			beforeGameStartClip.stop();
+			break;
+		case "gameBackground":
+			gameBackgroundClip.stop();
 			break;
 		}
 	}
+	
+	public void closeAudio(String name) {
+		switch(name) {
+		case "startFrame":
+			startFrameClip.close();
+			break;
+		case "beforeGameStart":
+			beforeGameStartClip.close();
+			break;
+		case "gameBackground":
+			gameBackgroundClip.close();
+			break;
+		}
+	}
+	
 	
 }

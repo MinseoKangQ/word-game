@@ -37,7 +37,6 @@ public class StartFrameSouthPanel extends JPanel {
 		startButton.requestFocus();
 			
 		startButton.addKeyListener(new KeyPressedListener()); // 버튼에 KeyListener 부착
-		startButton.addMouseListener(new MouseClickedListener()); // 버튼에 MouseListener 부착
 			
 		this.add(startButton); // 패널에 버튼 부착
 		
@@ -56,24 +55,11 @@ public class StartFrameSouthPanel extends JPanel {
 				
 				playersettingdialog = new PlayerSettingDialog(startFrame, audio); // 모달 다이얼로그 생성
 				playersettingdialog.setVisible(true); // 모달 다이얼로그 보이게
-//				audio.stopAudio("startFrame");
-//				startFrame.setVisible(false);
-//				startFrame.dispose();
-				
+
 
 			}	
 		}
 	}
 	
-	// 버튼에 부착될 MouseClickedListener 작성
-	private class MouseClickedListener extends MouseAdapter {
-		
-		@Override
-		public void mouseClicked(MouseEvent e) { // 버튼이 클릭되면
-		
-			playersettingdialog.setVisible(true); // 모달 다이얼로그 실행
-			
-		}
-	}
 	
 }

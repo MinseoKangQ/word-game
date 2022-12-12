@@ -31,10 +31,7 @@ public class PlayerSettingDialog extends JDialog {
 	
 	// Choose Profile 부분
 	private JLabel chooseProfileLabel = new JLabel("Choose Profile"); // Choose Profile 출력 레이블
-	private String profileArray [] = { 
-			"SpongebobSquarepants.png", "PatrickStar.png", 
-			//"Squidward Tentacles.png", "SandraCheeks.png", "EugeneHaroldKrabs.png", "SheldonJanetPlankton.png"
-	};
+	private String profileArray [] = { "SpongebobSquarepants.png", "PatrickStar.png" };
 	private ImageIcon profileImage [] = new ImageIcon[2];
 	ButtonGroup profileButtonGroup = new ButtonGroup();
 	JRadioButton profileButtonComponents[] = new JRadioButton[2];
@@ -170,8 +167,8 @@ public class PlayerSettingDialog extends JDialog {
 						
 				chooser = new JFileChooser(); // 파일 다이얼로그 생성
 				FileNameExtensionFilter filter = new FileNameExtensionFilter(
-						"PNG images", // 파일 이름난에 출력될 문자열
-						"png"); // 파일 필터로 사용되는 확장자, *.png만 나열됨 -> **txt로 바꾸기
+						"TXT files", // 파일 이름난에 출력될 문자열
+						"txt"); // 파일 필터로 사용되는 확장자, *.txt만 나열됨
 
 						
 				chooser.setFileFilter(filter);// 파일 다이얼로그에 파일 필터 설정
@@ -197,11 +194,16 @@ public class PlayerSettingDialog extends JDialog {
 				public void itemStateChanged(ItemEvent e) {
 					
 					if(e.getStateChange() == ItemEvent.DESELECTED) return;
-					if (profileButtonComponents[0].isSelected())
+					if (profileButtonComponents[0].isSelected()) {
 						profile = "SpongebobSquarepants";
-					else if (profileButtonComponents[1].isSelected())
+						GameManagement.profile = profile;
+						GameManagement.profileImage = new ImageIcon("SpongebobSquarepantsprofile.png");
+					}
+					else if (profileButtonComponents[1].isSelected()) {
 						profile = "PatrickStar";
-					
+						GameManagement.profile = profile;
+						GameManagement.profileImage = new ImageIcon("PatrickStarprofile.png");
+					}
 			}});
 		}
 		
@@ -211,12 +213,18 @@ public class PlayerSettingDialog extends JDialog {
 				@Override
 				public void itemStateChanged(ItemEvent e) {
 					
-					if (difficultyButtonComponents[0].isSelected())
+					if (difficultyButtonComponents[0].isSelected()) {
 						difficulty = "Easy";
-					else if (difficultyButtonComponents[1].isSelected())
+						GameManagement.difficulty = difficulty;
+					}
+					else if (difficultyButtonComponents[1].isSelected()) {
 						difficulty = "Normal";
-					else if (difficultyButtonComponents[2].isSelected())
+						GameManagement.difficulty = difficulty;
+					}
+					else if (difficultyButtonComponents[2].isSelected()) {
 						difficulty = "Hard";
+						GameManagement.difficulty = difficulty;
+					}
 			}});
 		}
 		
@@ -241,7 +249,11 @@ public class PlayerSettingDialog extends JDialog {
 						JOptionPane.YES_NO_OPTION);
 								
 				if (confirmResult == JOptionPane.YES_OPTION) {
-									
+					
+					GameManagement.name = name;
+					GameManagement.pathName = pathName;
+					GameManagement.fileName = fileName;
+					
 					// 플레이어 이름 출력
 					System.out.println("Player Name : " + name);
 					// 프로필 선택한 것 출력
@@ -253,8 +265,8 @@ public class PlayerSettingDialog extends JDialog {
 										
 					audio.stopAudio("startFrame"); // 시작 음악 정지
 					dispose(); // PlayerSettingDialog 종료
-					startFrame.setVisible(false);
-					startFrame.dispose();
+					startFrame.setVisible(false); // StartFrame 안보이게
+					startFrame.dispose(); // StartFrame 종료
 					App.run(); // 게임 화면으로 넘어가기 
 					
 					}
