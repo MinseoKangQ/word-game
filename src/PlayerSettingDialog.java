@@ -14,6 +14,7 @@ public class PlayerSettingDialog extends JDialog {
 	public Audio audio;
 	
 	Container contentPane;
+	StartFrame startFrame = null;
 	
 	// 정보 저장하는 static 변수
 	public static String name = "";
@@ -54,12 +55,13 @@ public class PlayerSettingDialog extends JDialog {
 	private JButton cancelButton = new JButton("Cancel");
 
 	// 생성자
-	public PlayerSettingDialog(Audio audio) {
+	public PlayerSettingDialog(StartFrame startFrame, Audio audio) {
 
+		super(startFrame, "Setting Player", true);
+		this.startFrame = startFrame;
 		this.audio = audio;
 
 		contentPane = getContentPane();
-		setTitle("Setting Player");
 		
 		// 배치관리자 제거
 		contentPane.setLayout(null);
@@ -251,6 +253,8 @@ public class PlayerSettingDialog extends JDialog {
 										
 					audio.stopAudio("startFrame"); // 시작 음악 정지
 					dispose(); // PlayerSettingDialog 종료
+					startFrame.setVisible(false);
+					startFrame.dispose();
 					App.run(); // 게임 화면으로 넘어가기 
 					
 					}

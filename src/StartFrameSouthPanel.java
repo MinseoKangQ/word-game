@@ -54,11 +54,11 @@ public class StartFrameSouthPanel extends JPanel {
 					
 			if (e.getKeyChar() == '\n') { // 엔터를 받으면 
 				
-				playersettingdialog = new PlayerSettingDialog(audio); // 모달 다이얼로그 생성
+				playersettingdialog = new PlayerSettingDialog(startFrame, audio); // 모달 다이얼로그 생성
 				playersettingdialog.setVisible(true); // 모달 다이얼로그 보이게
 //				audio.stopAudio("startFrame");
-				startFrame.setVisible(false);
-				startFrame.dispose();
+//				startFrame.setVisible(false);
+//				startFrame.dispose();
 				
 
 			}	
