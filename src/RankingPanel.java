@@ -11,19 +11,16 @@ public class RankingPanel extends JPanel {
 	private final int RECT_WIDTH = 260;
 	private final int RECT_HEIGHT = 150;
 	
-	
 	private Font defaultFont = new Font("Jokerman", Font.BOLD, 15); // 기본 폰트 설정
 	private LineBorder defaultLineBorder = new LineBorder(Color.WHITE, 5);
 	private String difficulty [] = { "Easy", "Normal", "Hard" };
 	private JLabel rankingTextLabel = new JLabel(" ★ Ranking ★ ");
-	private JLabel backGroundLabel [] = new JLabel[3];
 	private JLabel difficultyLabel [] = new JLabel[3];
 	private JLabel numberLabel [] = new JLabel[3];
 	
-	private JLabel easyRankingLabel [] = new JLabel[3];
+//	private JLabel easyRankingLabel [] = new JLabel[3];
 	
-//	private UserRankingManagement userRankingManagement = new UserRankingManagement();
-	
+	// 생성자
 	public RankingPanel() {
 		
 		Color backgroundColor = new Color(184, 221, 207);
@@ -32,14 +29,14 @@ public class RankingPanel extends JPanel {
 		setLayout(null);
 		
 		makeBasicLabels();
-//		makeEasyRankingLabels();
 		
 	}
 	
+	// 사각형 그리는 메소드
 	public void paintComponent(Graphics g) {
+		
 		super.paintComponent(g);
 		g.setColor(new Color(157, 203, 189));
-		
 		for (int i = 0; i<3; i++) {
 			g.fillRect(120, 115 + (180*i), RECT_WIDTH, RECT_HEIGHT);
 		}
@@ -59,7 +56,7 @@ public class RankingPanel extends JPanel {
 		rankingTextLabel.setBorder(defaultLineBorder);
 		this.add(rankingTextLabel);
 		
-		
+		// 난이도 텍스트
 		for (int i = 0; i<difficultyLabel.length; i++) {
 			difficultyLabel[i] = new JLabel(difficulty[i]);
 			difficultyLabel[i].setFont(defaultFont);
@@ -71,6 +68,7 @@ public class RankingPanel extends JPanel {
 			this.add(difficultyLabel[i]);
 		}
 		
+		// 숫자 텍스트
 		for (int i = 0; i<numberLabel.length; i++) {
 			for (int j = 0; j<numberLabel.length; j++) {
 			numberLabel[j] = new JLabel(Integer.toString(i+1));

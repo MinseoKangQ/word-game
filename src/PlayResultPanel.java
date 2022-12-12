@@ -12,11 +12,12 @@ import javax.swing.border.LineBorder;
 
 public class PlayResultPanel extends JPanel {
 
-	private UserRankingFrame userRankingFrame;
-	private ProfileAndScorePanel profileAndSocorePanel;
-	private Font defaultFont = new Font("Jokerman", Font.BOLD, 15); // 기본 폰트 설정
-	private LineBorder defaultLineBorder = new LineBorder(Color.WHITE, 5);
+	// 생성자에게 전달 위한 레퍼런스 선언
+	private UserRankingFrame userRankingFrame = null;
+	private ProfileAndScorePanel profileAndSocorePanel = null;
 	
+	private Font defaultFont = new Font("Jokerman", Font.BOLD, 15); 
+	private LineBorder defaultLineBorder = new LineBorder(Color.WHITE, 5);
 	
 	private JLabel gameResultTextLabel = new JLabel(" ★ Game Result ★ ");
 	private JLabel nameTextLabel = new JLabel(GameManagement.name);
@@ -25,6 +26,7 @@ public class PlayResultPanel extends JPanel {
 	private JLabel scoreLabel;
 	private JButton exitButton = new JButton("Exit");
 	
+	// 생성자
 	public PlayResultPanel(UserRankingFrame userRankingFrame, ProfileAndScorePanel profileAndScorePanel) {
 		
 		this.profileAndSocorePanel = profileAndScorePanel;
@@ -35,9 +37,9 @@ public class PlayResultPanel extends JPanel {
 		
 		setLayout(null);
 		
-		makeTextLabels();
-		makeProfileImageLabel();
-		makeExitButton();
+		makeTextLabels(); // 텍스트 레이블 부착
+		makeProfileImageLabel(); // 이미지 레이블 부착
+		makeExitButton(); // 종료 버튼 부착
 		
 	}
 	
@@ -52,7 +54,7 @@ public class PlayResultPanel extends JPanel {
 		gameResultTextLabel.setBackground(new Color(129, 172, 236));
 		gameResultTextLabel.setHorizontalAlignment(JLabel.CENTER);
 		gameResultTextLabel.setBorder(defaultLineBorder);
-		this.add(gameResultTextLabel);
+		add(gameResultTextLabel);
 				
 		// name 텍스트
 		nameTextLabel.setFont(defaultFont);
@@ -62,7 +64,7 @@ public class PlayResultPanel extends JPanel {
 		nameTextLabel.setOpaque(true);
 		nameTextLabel.setBackground(new Color(129, 172, 236));
 		nameTextLabel.setHorizontalAlignment(JLabel.CENTER); 
-		this.add(nameTextLabel);
+		add(nameTextLabel);
 		
 		// difficulty 텍스트
 		difficultyLabel.setFont(defaultFont);
@@ -72,7 +74,7 @@ public class PlayResultPanel extends JPanel {
 		difficultyLabel.setOpaque(true);
 		difficultyLabel.setBackground(new Color(129, 172, 236));
 		difficultyLabel.setHorizontalAlignment(JLabel.CENTER); 
-		this.add(difficultyLabel);
+		add(difficultyLabel);
 				
 		// score 텍스트
 		String score = Integer.toString(profileAndSocorePanel.getScore());
@@ -84,46 +86,48 @@ public class PlayResultPanel extends JPanel {
 		scoreLabel.setOpaque(true);
 		scoreLabel.setBackground(new Color(129, 172, 236));
 		scoreLabel.setHorizontalAlignment(JLabel.CENTER); 
-		this.add(scoreLabel);
+		add(scoreLabel);
 		
 	}
 	
 	private void makeProfileImageLabel() {
 		
-		// 프로필 이미지
 		profileImageLabel.setSize(180, 225);
 		profileImageLabel.setLocation(110, 165);
-		
 		profileImageLabel.setBorder(new LineBorder(new Color(129, 172, 236), 3));
-		this.add(profileImageLabel);
+		add(profileImageLabel);
 				
 	}
 	
 	private void makeExitButton() {
-		
-		// 종료 버튼
+	
 		exitButton.setFont(defaultFont);
 		exitButton.setSize(100, 70);
 		exitButton.setLocation(160, 550); 
+		
+		// 버튼에 이벤트 리스너 등록
 		exitButton.addKeyListener(new ExitListener());
 		
 		// 포커스 강제 설정
 		exitButton.setFocusable(true);
 		exitButton.requestFocus();
+			
+		add(exitButton);
 				
-		this.add(exitButton);
-				
+	}
+	
+	class ExitListener extends KeyAdapter {
+		
+		@Override
+		public void keyPressed(KeyEvent e) {
+			
+			if (e.getKeyChar() == '\n') { // 엔터를 받으면 
+				System.exit(0); // 프로그램 종료
+			}
+			
+		}
 	}
 }
 
-class ExitListener extends KeyAdapter {
-	
-	@Override
-	public void keyPressed(KeyEvent e) {
-		
-		if (e.getKeyChar() == '\n') { // 엔터를 받으면 
-			System.exit(0); // 프로그램 종료
-		}
-		
-	}
-}
+
+

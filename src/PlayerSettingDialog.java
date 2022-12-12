@@ -1,49 +1,43 @@
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
-
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
-import java.util.Enumeration;
-
 
 public class PlayerSettingDialog extends JDialog {
 	
-	// 오디오 전달 받을 수 있게 레퍼런스 선언
-	public Audio audio;
-	
-	Container contentPane;
+	// 생성자에게 전달 위한 레퍼런스 선언
 	StartFrame startFrame = null;
+	public Audio audio = null;
 	
-	// 정보 저장하는 static 변수
-	public static String name = "";
-	public static String profile = "SpongebobSquarepants"; // 초기 설정
-	public static String difficulty = "Easy"; // 초기 설정
-	public static String pathName = "";
-	public static String fileName = "";
-	
-	private Font defaultFont = new Font("Jokerman", Font.BOLD, 15); // 기본 폰트 설정
+	private Container contentPane;
+	private Font defaultFont = new Font("Jokerman", Font.BOLD, 15);
+
+	// 유저의 정보 저장하는 변수 (GameManagemet의 static 변수에 저장)
+	private String name = "";
+	private String profile = "SpongebobSquarepants"; // 초기 설정
+	private String difficulty = "Easy"; // 초기 설정
+	private String pathName = "";
+	private String fileName = "";
 	
 	// Player Name 부분
-	private JLabel playerNameLabel = new JLabel("Player Name"); // Player Name 출력 레이블
+	private JLabel playerNameLabel = new JLabel("Player Name"); 
 	private JTextField inputPlayerNameField = new JTextField(20); // Player Name 입력받는 필드
 	
 	// Choose Profile 부분
-	private JLabel chooseProfileLabel = new JLabel("Choose Profile"); // Choose Profile 출력 레이블
-	private String profileArray [] = { "SpongebobSquarepants.png", "PatrickStar.png" };
+	private JLabel chooseProfileLabel = new JLabel("Choose Profile"); 
+	private String profileArray [] = { "image/settingProfile/SpongebobSquarepants.png", "image/settingProfile/PatrickStar.png" };
 	private ImageIcon profileImage [] = new ImageIcon[2];
 	ButtonGroup profileButtonGroup = new ButtonGroup();
 	JRadioButton profileButtonComponents[] = new JRadioButton[2];
 	
 	// Choose Difficulty 부분
-	private JLabel difficultyLabel = new JLabel("Choose Difficulty"); // Choose Difficulty 출력 레이블
+	private JLabel difficultyLabel = new JLabel("Choose Difficulty"); 
 	private String difficultyArray [] = { "Easy", "Normal", "Hard" };
 	private ButtonGroup difficultyButtonGroup = new ButtonGroup();
 	private JRadioButton difficultyButtonComponents[] = new JRadioButton[3];
 	
 	// Choose Language 부분
-	private JLabel languageLabel = new JLabel("Choose Language"); // Choose Language 출력 레이블
+	private JLabel languageLabel = new JLabel("Choose Language"); 
 	private JButton OpenFileButton = new JButton("Open File");
 	private JFileChooser chooser; // JFileChooser 레퍼런스 변수 선언
 	
@@ -59,22 +53,20 @@ public class PlayerSettingDialog extends JDialog {
 		this.audio = audio;
 
 		contentPane = getContentPane();
-		
-		// 배치관리자 제거
 		contentPane.setLayout(null);
 		
 		setAllSizeAndLocation(); // 컴포넌트 부착을 위한 컴포넌트 크기 및 위치 설정
 		setAllFont(); // 폰트 설정
-		addAllComponents(); // 모든 컴포넌트들 부착
+		makeAllComponents(); // 모든 컴포넌트들 부착
 		addAllActionListener(); // 필요한 액션리스너들 부착
 		
-		setSize(550, 580); // 창 크기
-		setVisible(false); // 창 보이게
+		setSize(550, 580);
+		setVisible(false);
 		setResizable(false); // 창 크기 변경 불가능하게	
 		
-	} // 생성자 끝
+	} 
 
-	private void setAllSizeAndLocation() { // 컴포넌트 부착을 위한 컴포넌트 크기 및 위치 설정
+	private void setAllSizeAndLocation() { 
 		
 		// PlayerName 부분
 		playerNameLabel.setSize(100, 40);
@@ -119,9 +111,8 @@ public class PlayerSettingDialog extends JDialog {
 		cancelButton.setLocation(550/2+20, 450);
 	
 	} 
-	
 
-	private void setAllFont() { // 폰트 설정
+	private void setAllFont() {
 
 		playerNameLabel.setFont(defaultFont);
 		inputPlayerNameField.setFont(defaultFont);	
@@ -137,7 +128,7 @@ public class PlayerSettingDialog extends JDialog {
 		
 	}
 	
-	private void addAllComponents() { // 모든 컴포넌트들 부착
+	private void makeAllComponents() {
 		
 		contentPane.add(playerNameLabel);
 		contentPane.add(inputPlayerNameField);
@@ -160,7 +151,8 @@ public class PlayerSettingDialog extends JDialog {
 	
 	private void addAllActionListener() {
 		
-		OpenFileButton.addActionListener(new ActionListener() { // 버튼 클릭되면 파일 선택 다이얼로그 나타남
+		// 버튼 클릭 시 파일 다이얼로그 오픈
+		OpenFileButton.addActionListener(new ActionListener() {   
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -169,7 +161,6 @@ public class PlayerSettingDialog extends JDialog {
 				FileNameExtensionFilter filter = new FileNameExtensionFilter(
 						"TXT files", // 파일 이름난에 출력될 문자열
 						"txt"); // 파일 필터로 사용되는 확장자, *.txt만 나열됨
-
 						
 				chooser.setFileFilter(filter);// 파일 다이얼로그에 파일 필터 설정
 						
@@ -180,13 +171,14 @@ public class PlayerSettingDialog extends JDialog {
 				}
 						
 				// 파일 선택이 정상적으로 수행된 경우 
-				pathName = chooser.getSelectedFile().getPath(); // 사용자가 선택한 파일의 완전경로명 알아내기
-				fileName = chooser.getSelectedFile().getName(); // 사용자가 선택한 파일의 이름 알아내기
+				pathName = chooser.getSelectedFile().getPath(); // 사용자가 선택한 파일 완전경로명
+				fileName = chooser.getSelectedFile().getName(); // 사용자가 선택한 파일 이름
 				OpenFileButton.setText(fileName); // 버튼 텍스트를 파일 이름으로 설정
 						
 			}
 		});
 		
+		// 프로필 선택 버튼에 리스너 등록
 		for (int i = 0; i<profileButtonComponents.length; i++) {
 			profileButtonComponents[i].addItemListener(new ItemListener() {
 				
@@ -197,16 +189,17 @@ public class PlayerSettingDialog extends JDialog {
 					if (profileButtonComponents[0].isSelected()) {
 						profile = "SpongebobSquarepants";
 						GameManagement.profile = profile;
-						GameManagement.profileImage = new ImageIcon("SpongebobSquarepantsprofile.png");
+						GameManagement.profileImage = new ImageIcon("image/resultProfile/SpongebobSquarepantsprofile.png");
 					}
 					else if (profileButtonComponents[1].isSelected()) {
 						profile = "PatrickStar";
 						GameManagement.profile = profile;
-						GameManagement.profileImage = new ImageIcon("PatrickStarprofile.png");
+						GameManagement.profileImage = new ImageIcon("image/resultProfile/PatrickStarprofile.png");
 					}
 			}});
 		}
 		
+		// 난이도 선택 버튼에 리스너 등록
 		for (int i = 0; i<difficultyButtonComponents.length; i++) {
 			difficultyButtonComponents[i].addItemListener(new ItemListener() {
 				
@@ -228,8 +221,9 @@ public class PlayerSettingDialog extends JDialog {
 			}});
 		}
 		
-		// Complete Settings가 눌리면, 게임을 시작하시겠습니까? 다이얼로그 출력하고 YES NO 띄우고, 
-		// YES 이면 게임 시작 창으로 넘어가기, NO 이면 이전 상태로 돌아가기
+		// Complete Settings 버튼에 리스너 등록 
+		// 게임을 시작하시겠습니까? 다이얼로그 출력하고 YES NO 띄우고, 
+		// YES이면 게임 화면으로 넘어가기, NO이면 이전 상태로 돌아가기
 		completeSettingsButton.addActionListener(new ActionListener() {
 							
 			// confirm Dialog 출력
@@ -237,45 +231,33 @@ public class PlayerSettingDialog extends JDialog {
 				
 				name = inputPlayerNameField.getText();
 				
-				if (name.equals("")) 
+				if (name.equals("")) // 이름이 입력되지 않은 경우 경고
 					JOptionPane.showMessageDialog(null, "이름을 입력하세요!!", "경고", JOptionPane.ERROR_MESSAGE);
 				
-				else if (fileName.equals(""))
+				else if (fileName.equals("")) // 파일이 선택되지 않은 경우 경고
 					JOptionPane.showMessageDialog(null, "파일을 선택하세요!!", "경고", JOptionPane.ERROR_MESSAGE);
 				
-				else {
+				else { // 이름이 입력되었고 파일이 선택되었다면
 					
 					int confirmResult = JOptionPane.showConfirmDialog(contentPane, "입력한 정보가 맞습니까?", "Confirm Setting Infomation",
 						JOptionPane.YES_NO_OPTION);
 								
-				if (confirmResult == JOptionPane.YES_OPTION) {
-					
-					GameManagement.name = name;
-					GameManagement.pathName = pathName;
-					GameManagement.fileName = fileName;
-					
-					// 플레이어 이름 출력
-					System.out.println("Player Name : " + name);
-					// 프로필 선택한 것 출력
-					System.out.println("Choosed Profile : " + profile);
-					// 난이도 선택한 것 출력
-					System.out.println("난이도 : " + difficulty);
-					// 파일 이름 출력 
-					System.out.println("File : " + fileName);
-										
-					audio.stopAudio("startFrame"); // 시작 음악 정지
-					dispose(); // PlayerSettingDialog 종료
-					startFrame.setVisible(false); // StartFrame 안보이게
-					startFrame.dispose(); // StartFrame 종료
-					App.run(); // 게임 화면으로 넘어가기 
-					
+					if (confirmResult == JOptionPane.YES_OPTION) {
+						
+						GameManagement.name = name;
+						GameManagement.pathName = pathName;
+						GameManagement.fileName = ("txt/" + fileName);
+						
+						audio.stopAudio("startFrame"); // 시작 음악 정지
+						dispose(); // PlayerSettingDialog 종료
+						startFrame.setVisible(false); // StartFrame 안보이게
+						startFrame.dispose(); // StartFrame 종료
+						App.run(); // 게임 화면으로 넘어가기 
+						
 					}
 				}
 			}
-		});
-		
-		
-		
+		});	
 	}
 	
 }

@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.IOException;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -13,10 +12,13 @@ public class Audio {
 	private Clip beforeGameStartClip;
 	private Clip gameBackgroundClip;
 	
+	// 생성자
 	public Audio() {
-		startFrameClip = getClip("mainStartAudio.wav");
-		beforeGameStartClip = getClip("beforeGameStartAudio.wav");
-		gameBackgroundClip = getClip("gameBackgroundAudio.wav");
+		
+		startFrameClip = getClip("audio/mainStartAudio.wav");
+		beforeGameStartClip = getClip("audio/beforeGameStartAudio.wav");
+		gameBackgroundClip = getClip("audio/gameBackgroundAudio.wav");
+		
 	}
 	
 	// 오디오 클립 가져오기
@@ -39,6 +41,7 @@ public class Audio {
 	
 	// 오디오 재생
 	public void playAudio(String name) {
+		
 		switch(name) {
 		case "startFrame":
 			startFrameClip.start();
@@ -50,6 +53,7 @@ public class Audio {
 			gameBackgroundClip.start();
 			break;
 		}
+		
 	}
 	
 	// 오디오 정지
@@ -67,6 +71,7 @@ public class Audio {
 		}
 	}
 	
+	// 오디오 종료
 	public void closeAudio(String name) {
 		switch(name) {
 		case "startFrame":

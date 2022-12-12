@@ -9,7 +9,7 @@ public class WordList {
 	
 	public WordList() {
 		
-		// words.txt가 없으면 catch로 이동해서 처리함
+		// GameManagement.fileName가 없으면 catch로 이동해서 처리함
 		try {
 			Scanner scanner = new Scanner(new FileReader(GameManagement.fileName));
 			// 성공적으로 읽혔다면 

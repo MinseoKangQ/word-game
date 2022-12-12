@@ -1,39 +1,46 @@
 import javax.swing.*;
-
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.util.Iterator;
 import java.util.Vector;
 
 public class GamePanel extends JPanel {
 		
-		
-    private static int MAX_WORDS = 30; // 난이도에 따라 다르게 설정하기
+    private static int MAX_WORDS = 30;
     public static int fontRandSize = 10;
     private final int LABEL_WIDTH = 150;
     private final int LABEL_HEIGHT = 40;
 
-    private Font defaultFont = new Font("Jokerman", Font.BOLD, 15); // 기본 폰트 설정
-    private Audio audio = null;
+    private ImageIcon icon;
+    private Font defaultFont = new Font("Jokerman", Font.BOLD, 15);
     private JTextField inputField = new JTextField(MAX_WORDS);
-    
     private JLabel timeLabel = new JLabel("3");
-    WordList wordList;
-    ProfileAndScorePanel profileAndScorePanel;
-    private Vector<Word> currentWords = new Vector<>(MAX_WORDS);
+    
+    // 생성자에게 전달 위한 레퍼런스 선언
+    private GameFrame gameFrame = null;
+    private WordList wordList = null;
+    private ProfileAndScorePanel profileAndScorePanel = null;
+    private Audio audio = null;
+    
     private MainPlayPanel MainPlayPanel = new MainPlayPanel();
+    
+    // 단어 저장을 위한 벡터 생성
+    private Vector<Word> currentWords = new Vector<>(MAX_WORDS);
+    
+    // 스레드 실행을 위한 레퍼런스 선언
     private BeforeGameStartThread beforeGameStartThread = null;
     private GameTimerThread gameTimerThread = null;
     private GameThread gameThread = null;
-    private GameFrame gameFrame = null;
-    private UserRankingFrame userRankingFrame;
-//    private UserRankingManagement userRankingManagement = new UserRankingManagement();
     
-    private ImageIcon icon;
+    // 랭킹 확인 프레임을 생성을 위한 레퍼런스 선언
+    private UserRankingFrame userRankingFrame;
 	
+    // 생성자
     public GamePanel(GameFrame gameFrame, WordList wordList, ProfileAndScorePanel profileAndScorePanel, Audio audio) {
         
     	this.gameFrame = gameFrame;
@@ -43,20 +50,17 @@ public class GamePanel extends JPanel {
 
         setLayout(new BorderLayout());
         
-        makeMainPlayPanel();
-        makeTimePanel();
-        makeInputPanel();
-        addStartActionListener();
+        makeMainPlayPanel(); // 플레이 영역 만들기
+        makeTimePanel(); // 시간 영역 만들기
+        makeInputPanel(); // 입력 영역 만들기
+        addStartActionListener(); // 액션 리스너 등록
    
     }
-
     
-    private void makeMainPlayPanel() {
-    	
-    	add(MainPlayPanel, BorderLayout.CENTER);
-    	
-    }
+    // 플레이 영역을 가운데에 부착
+    private void makeMainPlayPanel() { add(MainPlayPanel, BorderLayout.CENTER); }
     
+    // 시간 영역을 위쪽에 부착
     private void makeTimePanel() {
     	
     	JPanel timePanel = new JPanel();
@@ -67,6 +71,7 @@ public class GamePanel extends JPanel {
         
     }
     
+    // 입력 영역을 아래쪽에 부착
     private void makeInputPanel() {
     	
     	 JPanel inputPanel = new JPanel();
@@ -79,34 +84,36 @@ public class GamePanel extends JPanel {
          
     }
     
+    // 액션 리스너 등록
     private void addStartActionListener() {
     	
     	inputField.addActionListener(new ActionListener() {
     		
-    		
             @Override
             public void actionPerformed(ActionEvent e) {
-                JTextField textField = (JTextField) e.getSource();
+                JTextField textField = (JTextField) e.getSource(); // 입력받은 것 전달받음
                 boolean isCorrect = false;
+                // 비교 시작
                 for (Word word : currentWords) {
-                    if (textField.getText().equals(word.getName())) {
-                    	profileAndScorePanel.increase();
-                        word.setY(MainPlayPanel.getHeight());
-                        isCorrect = true;
-                        profileAndScorePanel.setNormalProfileImage();
+                    if (textField.getText().equals(word.getName())) { // 단어가 일치한다면
+                    	profileAndScorePanel.increase(); // 점수 증가
+                        word.setY(MainPlayPanel.getHeight()); // 단어를 아래에 배치
+                        isCorrect = true; // 단어가 일치함을 표현
+                        profileAndScorePanel.setNormalProfileImage(); // 표정 바꾸기
                         break;
                     }
                 }
-                if (!isCorrect) {
-                	profileAndScorePanel.decrease();
-                	profileAndScorePanel.setSadProfileImage();
+                if (!isCorrect) { // 단어가 일치하지 않는다면
+                	profileAndScorePanel.decrease(); // 점수 감소
+                	profileAndScorePanel.setSadProfileImage(); // 표정 바꾸기
                 } 
-                textField.setText("");
+                textField.setText(""); // 텍스트 필드 초기화
             }
         });
     	
     }
     
+    // 3초 카운트 다운 메소드
     public void startCountDown() {
     	if (beforeGameStartThread == null) {
     		beforeGameStartThread = new BeforeGameStartThread(this, timeLabel, audio);
@@ -114,6 +121,7 @@ public class GamePanel extends JPanel {
     	}
     }
     
+    // 게임 시작 메소드
     public void startGame() {
         if (gameThread == null) {
         	gameThread = new GameThread(this);
@@ -121,6 +129,7 @@ public class GamePanel extends JPanel {
         }
     }
     
+    // 게임 타이머 시작 메소드
     public void startGameTimerThread() {
     	if (gameTimerThread == null) {
     		gameTimerThread = new GameTimerThread(this, timeLabel, audio);
@@ -128,26 +137,23 @@ public class GamePanel extends JPanel {
     	}
     }
     
-    
-    // 60초가 지나면
+    // 게임 종료 메소드
     public void gameEnd() {
     	
 		if (gameThread != null) {
-    		gameThread.interrupt();
+    		gameThread.interrupt(); // 게임 스레드 종료
     		this.removeAll(); // 화면 정지
-    		audio.closeAudio("gameBackground"); // 오디오 종료
-    		// 팝업 다이얼로그 띄우기
-    		JOptionPane.showMessageDialog(gameFrame, "게임이 종료되었습니다. 결과를 확인하세요!", "Game Ended",
-    				JOptionPane.ERROR_MESSAGE);
-    		
-    		gameFrame.dispose(); // gameFrame 닫기
-    		userRankingFrame = new UserRankingFrame(profileAndScorePanel); // 랭킹 창 띄우기
-//    		userRankingManagement.saveRanking(GameManagement.name, profileAndScorePanel.getScore());
+    		audio.closeAudio("gameBackground"); 
+    		JOptionPane.showMessageDialog(gameFrame, "Game ended. Confirm result!", "Game Ended", JOptionPane.ERROR_MESSAGE); // 팝업 띄우기
+    		gameFrame.dispose(); // gameFrame 종료
+    		userRankingFrame = new UserRankingFrame(profileAndScorePanel); // 랭킹 확인 프레임 띄우기
     	}
 		
 	}
 
+    // 게임 중지 메소드
     public void stopGame() {
+    	
     	if(gameThread.getStopFlag() == false) {
     		gameThread.stopGame();
     		inputField.setEditable(false);
@@ -155,9 +161,12 @@ public class GamePanel extends JPanel {
     	if(gameTimerThread.getStopFlag() == false) {
     		gameTimerThread.stopTimer();
     	}
+    	
     }
     
+    // 게임 재개 메소드
     public void resumeGame() {
+    	
     	if(gameThread.getStopFlag() == true) {
     		gameThread.resumeGame();
     		inputField.setEditable(true);
@@ -165,8 +174,10 @@ public class GamePanel extends JPanel {
     	if(gameTimerThread.getStopFlag() == true) {
     		gameTimerThread.resumeTimer();
     	}
+    	
     }
     
+    // 단어 추가 메소드
     public void addWord() {
         int x = (int) (Math.random() * (MainPlayPanel.getWidth() - LABEL_WIDTH / 2));
         Word word = new Word(wordList.getWord(), x, 0, Math.random() / 20 + 0.1);
@@ -174,55 +185,60 @@ public class GamePanel extends JPanel {
         addLabel(word);
     }
 
+    // 레이블을 패널에 부착하는 메소드
     private void addLabel(Word word) {
-    	
-    	fontRandSize = (int)(Math.random()*10 + 10);
+    
         JLabel label = word.getLabel();
         label.setSize(LABEL_WIDTH, LABEL_HEIGHT);
         label.setLocation(getX(), 0);
+        fontRandSize = (int)(Math.random()*10 + 10); // 글자 크기 랜덤
         label.setFont(new Font("Jokerman", Font.BOLD, fontRandSize));
         MainPlayPanel.add(label);
         
     }
 
+    // 단어 세팅 메소드
     public void setWords() {
-        Iterator<Word> iterator = currentWords.iterator();
-        while (iterator.hasNext()) {
-            Word word = iterator.next();
-            word.setY(word.getY() + word.getSpeed());
-            JLabel label = word.getLabel();
-            label.setLocation((int) (word.getX()), (int) word.getY());
-            if (label.getY() >= MainPlayPanel.getHeight()) {
-                MainPlayPanel.remove(label);
-                iterator.remove();
+    	
+        Iterator<Word> iterator = currentWords.iterator(); // currentWords의 요소를 순차 검색할 Iterator 객체 리턴
+        while (iterator.hasNext()) { // 방문할 요소가 남아있다면
+            Word word = iterator.next(); // iterator가 가리키는 요소 리턴
+            word.setY(word.getY() + word.getSpeed()); // Y 좌표 설정
+            JLabel label = word.getLabel(); // 단어 받아오기
+            label.setLocation((int) (word.getX()), (int) word.getY()); // 레이블 위치 지정
+            if (label.getY() >= MainPlayPanel.getHeight()) { // 영역을 벗어나면
+                MainPlayPanel.remove(label); // 패널에서 레이블 제거
+                iterator.remove(); // iterator에서 제거
             }
         }
+        
     }
 
     class MainPlayPanel extends JPanel {
     	
+    	// 게임 배경 화면 그리는 메소드
+    	@Override
     	public void paintComponent(Graphics g) {
     		super.paintComponent(g);
-
     		g.drawImage(getBackgroundImage(), 0, 0, getWidth(), getHeight(), this);
     	}
     	
+    	// 생성자
         public MainPlayPanel() { }
         
+        // 게임 배경 화면 받아오는 메소드
         public Image getBackgroundImage() {
         	
         	if(GameManagement.profile.equals("SpongebobSquarepants")) {
-        		icon = new ImageIcon("SpongebobBackground.png");
+        		icon = new ImageIcon("image/background/SpongebobBackground.png");
         		return icon.getImage();
         	}
         	else {
-        		icon = new ImageIcon("PatrickStarBackground.png");
+        		icon = new ImageIcon("image/background/PatrickStarBackground.png");
         		return icon.getImage();
         	}
-        	
         }
        
     }
 
-   
 }

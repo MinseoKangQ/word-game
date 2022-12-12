@@ -1,10 +1,5 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,38 +7,31 @@ import javax.swing.border.LineBorder;
 
 public class ProfileAndScorePanel extends JPanel {
 
-	private Font defaultFont = new Font("Jokerman", Font.BOLD, 15); // 기본 폰트 설정
-	
-	private String name = GameManagement.name;
-	private String profile = GameManagement.profile;
+	private Font defaultFont = new Font("Jokerman", Font.BOLD, 15); 
 
 	public static int score = 0;
 	
-	private JLabel nameLabel = new JLabel(name);
-	private JLabel scoreLabel = new JLabel(Integer.toString(score)); // int형 score를 문자열로
+	private JLabel nameLabel = new JLabel(GameManagement.name);
+	private JLabel scoreLabel = new JLabel(Integer.toString(score));
 	
 	private ImageIcon profileImage;
 	private JLabel profileLabel;
 	
 	private ImageIcon normalProfileImage;
-	private JLabel normalProfileLabel;
-	
 	private ImageIcon sadProfileImage;
-	private JLabel sadProfileLabel;
 	
 	// 생성자
 	public ProfileAndScorePanel() {
 		
 		setOpaque(true); 
-		
 		Color backgroundColor = new Color(168, 200, 236);
 		setBackground(backgroundColor);
 		
 		setLayout(null);
 		
-		makeNameLabel();
-		makeProfileLabel();
-		makeScoreLabel();
+		makeNameLabel(); // 이름 레이블 부착
+		makeProfileLabel(); // 프로필 레이블 부착
+		makeScoreLabel(); // 점수 레이블 부착
 		
 	}
 	
@@ -61,10 +49,11 @@ public class ProfileAndScorePanel extends JPanel {
 	
 	public void makeProfileLabel() {
 		
+		// 프로필에 따라 나타나는 이미지가 다르다
 		if(GameManagement.profile.equals("SpongebobSquarepants")) {
-			profileImage = new ImageIcon("SpongebobNormal.png");
-			this.normalProfileImage = new ImageIcon("SpongebobNormal.png");
-			this.sadProfileImage = new ImageIcon("SpongebobSad.png");
+			profileImage = new ImageIcon("image/expression/SpongebobNormal.png");
+			this.normalProfileImage = new ImageIcon("image/expression/SpongebobNormal.png");
+			this.sadProfileImage = new ImageIcon("image/expression/SpongebobSad.png");
     		profileLabel = new JLabel(profileImage);
     		profileLabel.setSize(150, 150);
     		profileLabel.setLocation(75 ,95);
@@ -72,9 +61,9 @@ public class ProfileAndScorePanel extends JPanel {
     		add(profileLabel);
 		}
 		else if(GameManagement.profile.equals("PatrickStar")) {
-			profileImage = new ImageIcon("PatrickStarNormal.png");
-			this.normalProfileImage = new ImageIcon("PatrickStarNormal.png");
-			this.sadProfileImage = new ImageIcon("PatrickStarSad.png");
+			profileImage = new ImageIcon("image/expression/PatrickStarNormal.png");
+			this.normalProfileImage = new ImageIcon("image/expression/PatrickStarNormal.png");
+			this.sadProfileImage = new ImageIcon("image/expression/PatrickStarSad.png");
     		profileLabel = new JLabel(profileImage);
     		profileLabel.setSize(150, 150);
     		profileLabel.setLocation(75 ,95);
@@ -105,50 +94,43 @@ public class ProfileAndScorePanel extends JPanel {
 		
 	}
 
-	public void setNormalProfileImage() {
-		
-		profileLabel.setIcon(normalProfileImage);
-		
-	}
+	// 단어가 일치할 때 호출되는 메소드
+	public void setNormalProfileImage() { profileLabel.setIcon(normalProfileImage); }
 	
-	public void setSadProfileImage() { 
-    
-    	profileLabel.setIcon(sadProfileImage);
-    	
-    }
+	// 단어가 일치하지 않을 때 호출되는 메소드
+	public void setSadProfileImage() { profileLabel.setIcon(sadProfileImage); }
 	
-	
-	// 점수 올리는 메소드
+	// 점수 증가 메소드
 	public void increase() { 
 		
+		// 난이도에 따라 증가하는 점수가 다름
 		if (GameManagement.difficulty.equals("Normal")) {
 			score += 15;
 			scoreLabel.setText(Integer.toString(score)); 
 		}
-		
 		else if (GameManagement.difficulty.equals("Hard")) {
 			score += 20;
 			scoreLabel.setText(Integer.toString(score)); 
 		}
-		
 		else {
 			score += 10;
 			scoreLabel.setText(Integer.toString(score));
 		}
+		
 	}
 	
+	// 점수 감소 메소드
 	public void decrease() { 
 		
+		// 난이도에 따라 감소하는 점수가 다름
 		if (GameManagement.difficulty.equals("Normal")) {
 			score -= 15;
 			scoreLabel.setText(Integer.toString(score)); 
 		}
-		
 		else if (GameManagement.difficulty.equals("Hard")) {
 			score -= 20;
 			scoreLabel.setText(Integer.toString(score)); 
 		}
-		
 		else {
 			score -= 10;
 			scoreLabel.setText(Integer.toString(score));
@@ -156,5 +138,7 @@ public class ProfileAndScorePanel extends JPanel {
 		
 	}
 	
+	// 점수 리턴 메소드
 	public int getScore() { return this.score; }
+	
 }
