@@ -33,6 +33,7 @@ public class UserRankingFrame extends JFrame {
 		setVisible(true);
 		setResizable(false);
 
+		
 	}
 	
 	// 스플릿팬 만들기

@@ -11,6 +11,9 @@ public class Audio {
 	private Clip startFrameClip;
 	private Clip beforeGameStartClip;
 	private Clip gameBackgroundClip;
+	private Clip correctClip;
+	private Clip wrongClip;
+	private Clip gameEndedClip;
 	
 	// 생성자
 	public Audio() {
@@ -18,7 +21,9 @@ public class Audio {
 		startFrameClip = getClip("audio/mainStartAudio.wav");
 		beforeGameStartClip = getClip("audio/beforeGameStartAudio.wav");
 		gameBackgroundClip = getClip("audio/gameBackgroundAudio.wav");
-		
+		correctClip = getClip("audio/correct.wav");
+		wrongClip = getClip("audio/wrong.wav");
+		gameEndedClip = getClip("audio/gameEnded.wav");
 	}
 	
 	// 오디오 클립 가져오기
@@ -52,6 +57,15 @@ public class Audio {
 		case "gameBackground":
 			gameBackgroundClip.start();
 			break;
+		case "correct":
+			correctClip.start();
+			break;
+		case "wrong":
+			wrongClip.start();
+			break;
+		case "gameEnded":
+			gameEndedClip.start();
+			break;
 		}
 		
 	}
@@ -68,6 +82,15 @@ public class Audio {
 		case "gameBackground":
 			gameBackgroundClip.stop();
 			break;
+		case "correct":
+			correctClip.stop();
+			break;
+		case "wrong":
+			wrongClip.stop();
+			break;
+		case "gameEnded":
+			gameEndedClip.stop();
+			break;
 		}
 	}
 	
@@ -82,6 +105,15 @@ public class Audio {
 			break;
 		case "gameBackground":
 			gameBackgroundClip.close();
+			break;
+		case "correct":
+			correctClip.close();
+			break;
+		case "wrong":
+			wrongClip.close();
+			break;
+		case "gameEnded":
+			gameEndedClip.close();
 			break;
 		}
 	}

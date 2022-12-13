@@ -13,11 +13,11 @@ public class PlayerSettingDialog extends JDialog {
 	private Font defaultFont = new Font("Jokerman", Font.BOLD, 15);
 
 	// 유저의 정보 저장하는 변수 (GameManagemet의 static 변수에 저장)
-	private String name = "";
+	private String name = null;
 	private String profile = "SpongebobSquarepants"; // 초기 설정
 	private String difficulty = "Easy"; // 초기 설정
-	private String pathName = "";
-	private String fileName = "";
+	private String pathName = null;
+	private String fileName = null;
 	
 	// Player Name 부분
 	private JLabel playerNameLabel = new JLabel("Player Name"); 
@@ -63,6 +63,11 @@ public class PlayerSettingDialog extends JDialog {
 		setSize(550, 580);
 		setVisible(false);
 		setResizable(false); // 창 크기 변경 불가능하게	
+		
+		if (GameManagement.fileName != null) {
+			OpenFileButton.setText(GameManagement.fileName);
+			fileName = GameManagement.fileName;
+		}
 		
 	} 
 
@@ -231,10 +236,10 @@ public class PlayerSettingDialog extends JDialog {
 				
 				name = inputPlayerNameField.getText();
 				
-				if (name.equals("")) // 이름이 입력되지 않은 경우 경고
+				if (name.equals("") || name == null) // 이름이 입력되지 않은 경우 경고
 					JOptionPane.showMessageDialog(null, "이름을 입력하세요!!", "경고", JOptionPane.ERROR_MESSAGE);
 				
-				else if (fileName.equals("")) // 파일이 선택되지 않은 경우 경고
+				else if (fileName == null) // 파일이 선택되지 않은 경우 경고
 					JOptionPane.showMessageDialog(null, "파일을 선택하세요!!", "경고", JOptionPane.ERROR_MESSAGE);
 				
 				else { // 이름이 입력되었고 파일이 선택되었다면
@@ -246,7 +251,11 @@ public class PlayerSettingDialog extends JDialog {
 						
 						GameManagement.name = name;
 						GameManagement.pathName = pathName;
-						GameManagement.fileName = ("txt/" + fileName);
+						
+						if (GameManagement.fileName.equals("words.txt"))
+							GameManagement.fileName = ("txt/" + fileName);
+						else if (GameManagement.fileName.equals("toeicwords.txt"))
+							GameManagement.fileName = ("txt/" + fileName);
 						
 						audio.stopAudio("startFrame"); // 시작 음악 정지
 						dispose(); // PlayerSettingDialog 종료

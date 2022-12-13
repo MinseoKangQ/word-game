@@ -96,16 +96,21 @@ public class GamePanel extends JPanel {
                 // 비교 시작
                 for (Word word : currentWords) {
                     if (textField.getText().equals(word.getName())) { // 단어가 일치한다면
+                    	isCorrect = true;
                     	profileAndScorePanel.increase(); // 점수 증가
                         word.setY(MainPlayPanel.getHeight()); // 단어를 아래에 배치
-                        isCorrect = true; // 단어가 일치함을 표현
                         profileAndScorePanel.setNormalProfileImage(); // 표정 바꾸기
+                        Audio playcorrect = new Audio(); // 효과음을 나타내기 위해 오디오 객체 생성
+                        playcorrect.playAudio("correct"); // 효과음 발생
                         break;
                     }
                 }
                 if (!isCorrect) { // 단어가 일치하지 않는다면
                 	profileAndScorePanel.decrease(); // 점수 감소
                 	profileAndScorePanel.setSadProfileImage(); // 표정 바꾸기
+                	Audio playwrong = new Audio(); // 효과음을 나타내기 위해 오디오 객체 생성
+                	playwrong.playAudio("wrong"); // 효과음 발생
+                	
                 } 
                 textField.setText(""); // 텍스트 필드 초기화
             }
@@ -146,8 +151,10 @@ public class GamePanel extends JPanel {
     		audio.closeAudio("gameBackground"); 
     		JOptionPane.showMessageDialog(gameFrame, "Game ended. Confirm result!", "Game Ended", JOptionPane.ERROR_MESSAGE); // 팝업 띄우기
     		gameFrame.dispose(); // gameFrame 종료
+    		GameManagement.score = profileAndScorePanel.getScore();
     		userRankingFrame = new UserRankingFrame(profileAndScorePanel); // 랭킹 확인 프레임 띄우기
-    	}
+    		audio.playAudio("gameEnded"); // 게임 종료 배경 음악 시작
+		}
 		
 	}
 

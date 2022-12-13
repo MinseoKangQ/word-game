@@ -7,7 +7,8 @@ public class GameManagement {
 	public static String profile = "SpongebobSquarepants"; // 초기 설정
 	public static ImageIcon profileImage = new ImageIcon("image/resultProfile/SpongebobSquarepantsprofile.png");
 	public static String difficulty = "Easy"; // 초기 설정
-	public static String pathName = "null";
-	public static String fileName = "null";
+	public static String pathName = null;
+	public static String fileName = null;
+	public static int score = 0;
 	
 }

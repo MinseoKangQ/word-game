@@ -17,8 +17,7 @@ public class RankingPanel extends JPanel {
 	private JLabel rankingTextLabel = new JLabel(" ★ Ranking ★ ");
 	private JLabel difficultyLabel [] = new JLabel[3];
 	private JLabel numberLabel [] = new JLabel[3];
-	
-//	private JLabel easyRankingLabel [] = new JLabel[3];
+	private JLabel nameScoreLabel = null;
 	
 	// 생성자
 	public RankingPanel() {
@@ -29,6 +28,7 @@ public class RankingPanel extends JPanel {
 		setLayout(null);
 		
 		makeBasicLabels();
+		addNameScore();
 		
 	}
 	
@@ -54,7 +54,7 @@ public class RankingPanel extends JPanel {
 		rankingTextLabel.setBackground(new Color(157, 203, 189));
 		rankingTextLabel.setHorizontalAlignment(JLabel.CENTER);
 		rankingTextLabel.setBorder(defaultLineBorder);
-		this.add(rankingTextLabel);
+		add(rankingTextLabel);
 		
 		// 난이도 텍스트
 		for (int i = 0; i<difficultyLabel.length; i++) {
@@ -63,9 +63,7 @@ public class RankingPanel extends JPanel {
 			difficultyLabel[i].setForeground(Color.WHITE);
 			difficultyLabel[i].setSize(65, 50);
 			difficultyLabel[i].setLocation(140, 115 + (180*i));
-			difficultyLabel[i].setOpaque(true);
-			difficultyLabel[i].setBackground(Color.BLUE);
-			this.add(difficultyLabel[i]);
+			add(difficultyLabel[i]);
 		}
 		
 		// 숫자 텍스트
@@ -76,27 +74,29 @@ public class RankingPanel extends JPanel {
 			numberLabel[j].setForeground(Color.WHITE);
 			numberLabel[j].setSize(15, 50);
 			numberLabel[j].setLocation(215, 115 + (50*i) + (180*j));
-			numberLabel[j].setOpaque(true);
-			numberLabel[j].setBackground(Color.BLUE);
-			this.add(numberLabel[j]);
+			add(numberLabel[j]);
 			}
 		}
 	}
 	
+	private void addNameScore() {
+		
+		nameScoreLabel = new JLabel(GameManagement.name + " | " + GameManagement.score);
+		nameScoreLabel.setFont(defaultFont);
+		nameScoreLabel.setForeground(Color.WHITE);
+		nameScoreLabel.setSize(100, 50);
+		
+		if (GameManagement.difficulty.equals("Easy"))
+			nameScoreLabel.setLocation(240, 115); // 140, 115 + (180*i)
+		else if (GameManagement.difficulty.equals("Normal"))
+			nameScoreLabel.setLocation(240, 295);
+		else if (GameManagement.difficulty.equals("Normal"))
+			nameScoreLabel.setLocation(240, 475);
+		
+		add(nameScoreLabel);
+		
+		}
 	
-//	private void makeEasyRankingLabels() {
-//		for (int i = 0; i<easyRankingLabel.length; i++) {
-//			String name = userRankingManagement.getUser(i).name;
-//			easyRankingLabel[i] = new JLabel(name);
-//			easyRankingLabel[i].setFont(defaultFont);
-//			easyRankingLabel[i].setForeground(Color.WHITE);
-//			easyRankingLabel[i].setSize(80, 50);
-//			easyRankingLabel[i].setLocation(235, 115 + (50*i));
-//			easyRankingLabel[i].setOpaque(true);
-//			easyRankingLabel[i].setBackground(Color.BLUE);
-//			this.add(easyRankingLabel[i]);
-//		}
-//	}
-	
+		
 	
 }

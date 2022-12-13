@@ -43,7 +43,7 @@ public class ProfileAndScorePanel extends JPanel {
 		nameLabel.setHorizontalAlignment(JLabel.CENTER);
 		nameLabel.setOpaque(true);
 		nameLabel.setBackground(Color.WHITE);
-		add(nameLabel);
+		this.add(nameLabel);
 		
 	}
 	
@@ -52,13 +52,14 @@ public class ProfileAndScorePanel extends JPanel {
 		// 프로필에 따라 나타나는 이미지가 다르다
 		if(GameManagement.profile.equals("SpongebobSquarepants")) {
 			profileImage = new ImageIcon("image/expression/SpongebobNormal.png");
-			this.normalProfileImage = new ImageIcon("image/expression/SpongebobNormal.png");
+//	 원래		this.normalProfileImage = new ImageIcon("image/expression/SpongebobNormal.png");
+			this.normalProfileImage = profileImage;
 			this.sadProfileImage = new ImageIcon("image/expression/SpongebobSad.png");
     		profileLabel = new JLabel(profileImage);
     		profileLabel.setSize(150, 150);
     		profileLabel.setLocation(75 ,95);
     		profileLabel.setBorder(new LineBorder(Color.WHITE, 3));
-    		add(profileLabel);
+    		this.add(profileLabel);
 		}
 		else if(GameManagement.profile.equals("PatrickStar")) {
 			profileImage = new ImageIcon("image/expression/PatrickStarNormal.png");
@@ -68,7 +69,7 @@ public class ProfileAndScorePanel extends JPanel {
     		profileLabel.setSize(150, 150);
     		profileLabel.setLocation(75 ,95);
     		profileLabel.setBorder(new LineBorder(Color.WHITE, 3));
-    		add(profileLabel);
+    		this.add(profileLabel);
 		}
 		
 	}
@@ -82,7 +83,7 @@ public class ProfileAndScorePanel extends JPanel {
 		scoreLabelText.setHorizontalAlignment(JLabel.CENTER);
 		scoreLabelText.setOpaque(true);
 		scoreLabelText.setBackground(Color.WHITE);
-		add(scoreLabelText);
+		this.add(scoreLabelText);
 		
 		scoreLabel.setFont(defaultFont);
 		scoreLabel.setSize(100, 30);
@@ -90,7 +91,7 @@ public class ProfileAndScorePanel extends JPanel {
 		scoreLabel.setHorizontalAlignment(JLabel.CENTER);
 		scoreLabel.setOpaque(true);
 		scoreLabel.setBackground(Color.WHITE);
-		add(scoreLabel);
+		this.add(scoreLabel);
 		
 	}
 
@@ -106,15 +107,15 @@ public class ProfileAndScorePanel extends JPanel {
 		// 난이도에 따라 증가하는 점수가 다름
 		if (GameManagement.difficulty.equals("Normal")) {
 			score += 15;
-			scoreLabel.setText(Integer.toString(score)); 
+			scoreLabel.setText(Integer.toString(getScore())); 
 		}
 		else if (GameManagement.difficulty.equals("Hard")) {
 			score += 20;
-			scoreLabel.setText(Integer.toString(score)); 
+			this.scoreLabel.setText(Integer.toString(getScore())); 
 		}
 		else {
 			score += 10;
-			scoreLabel.setText(Integer.toString(score));
+			scoreLabel.setText(Integer.toString(getScore()));
 		}
 		
 	}
@@ -125,20 +126,20 @@ public class ProfileAndScorePanel extends JPanel {
 		// 난이도에 따라 감소하는 점수가 다름
 		if (GameManagement.difficulty.equals("Normal")) {
 			score -= 15;
-			scoreLabel.setText(Integer.toString(score)); 
+			scoreLabel.setText(Integer.toString(getScore())); 
 		}
 		else if (GameManagement.difficulty.equals("Hard")) {
 			score -= 20;
-			scoreLabel.setText(Integer.toString(score)); 
+			scoreLabel.setText(Integer.toString(getScore())); 
 		}
 		else {
 			score -= 10;
-			scoreLabel.setText(Integer.toString(score));
+			scoreLabel.setText(Integer.toString(getScore()));
 		}
 		
 	}
 	
 	// 점수 리턴 메소드
-	public int getScore() { return this.score; }
+	public int getScore() { return score; }
 	
 }
