@@ -196,10 +196,10 @@ public class GamePanel extends JPanel {
     private void addLabel(Word word) {
     
         JLabel label = word.getLabel();
-        label.setSize(LABEL_WIDTH, LABEL_HEIGHT);
-        label.setLocation(getX(), 0);
         fontRandSize = (int)(Math.random()*10 + 10); // 글자 크기 랜덤
         label.setFont(new Font("Jokerman", Font.BOLD, fontRandSize));
+        label.setSize(LABEL_WIDTH, LABEL_HEIGHT);
+        label.setLocation(getX(), 0);
         MainPlayPanel.add(label);
         
     }

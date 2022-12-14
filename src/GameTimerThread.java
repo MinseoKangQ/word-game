@@ -8,8 +8,8 @@ public class GameTimerThread extends Thread{
 	private GamePanel gamePanel = null;
 	private JLabel timeLabel = null;
 	
-	// 게임 시작 후 30초 카운트 다운을 위한 변수
-	private int count = 30;
+	// 게임 시작 후 45초 카운트 다운을 위한 변수
+	private int count = 45;
 	
 	// 게임 일시 중지 확인 Flag 관련 변수 및 메소드
 	private boolean stopFlag = false;

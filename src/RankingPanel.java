@@ -97,6 +97,4 @@ public class RankingPanel extends JPanel {
 		
 		}
 	
-		
-	
 }

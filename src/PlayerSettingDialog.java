@@ -36,8 +36,8 @@ public class PlayerSettingDialog extends JDialog {
 	private ButtonGroup difficultyButtonGroup = new ButtonGroup();
 	private JRadioButton difficultyButtonComponents[] = new JRadioButton[3];
 	
-	// Choose Language 부분
-	private JLabel languageLabel = new JLabel("Choose Language"); 
+	// Choose File 부분
+	private JLabel fileLabel = new JLabel("Choose File"); 
 	private JButton OpenFileButton = new JButton("Open File");
 	private JFileChooser chooser; // JFileChooser 레퍼런스 변수 선언
 	
@@ -102,9 +102,9 @@ public class PlayerSettingDialog extends JDialog {
 		}
 		difficultyButtonComponents[0].setSelected(true); // Easy 모드 Default로 선택
 				
-		// Choose Language (by File) 부분
-		languageLabel.setSize(145, 40);
-		languageLabel.setLocation(30, 320);
+		// Choose File 부분
+		fileLabel.setSize(145, 40);
+		fileLabel.setLocation(30, 320);
 				
 		OpenFileButton.setSize(170, 40);
 		OpenFileButton.setLocation(30, 365);
@@ -126,7 +126,7 @@ public class PlayerSettingDialog extends JDialog {
 		for (int i = 0; i<difficultyButtonComponents.length; i++) {
 			difficultyButtonComponents[i].setFont(defaultFont);
 		}
-		languageLabel.setFont(defaultFont);
+		fileLabel.setFont(defaultFont);
 		OpenFileButton.setFont(defaultFont);
 		completeSettingsButton.setFont(defaultFont);
 		cancelButton.setFont(defaultFont);
@@ -147,7 +147,7 @@ public class PlayerSettingDialog extends JDialog {
 			difficultyButtonGroup.add(difficultyButtonComponents[i]);
 			contentPane.add(difficultyButtonComponents[i]);
 		}
-		contentPane.add(languageLabel);
+		contentPane.add(fileLabel);
 		contentPane.add(OpenFileButton);
 		contentPane.add(completeSettingsButton);
 		contentPane.add(cancelButton);
@@ -226,12 +226,21 @@ public class PlayerSettingDialog extends JDialog {
 			}});
 		}
 		
+		cancelButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) { dispose(); }
+
+		});
+		
+		
 		// Complete Settings 버튼에 리스너 등록 
 		// 게임을 시작하시겠습니까? 다이얼로그 출력하고 YES NO 띄우고, 
 		// YES이면 게임 화면으로 넘어가기, NO이면 이전 상태로 돌아가기
 		completeSettingsButton.addActionListener(new ActionListener() {
 							
 			// confirm Dialog 출력
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				
 				name = inputPlayerNameField.getText();
@@ -251,6 +260,7 @@ public class PlayerSettingDialog extends JDialog {
 						
 						GameManagement.name = name;
 						GameManagement.pathName = pathName;
+						GameManagement.fileName = fileName;
 						
 						if (GameManagement.fileName.equals("words.txt"))
 							GameManagement.fileName = ("txt/" + fileName);
